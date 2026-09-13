@@ -118,3 +118,26 @@ def test_url_builders_are_pure_and_make_no_request():
         history_url(date(2026, 9, 1), date(2026, 9, 3))
     finally:
         amfi_client.urllib.request.urlopen = original
+
+
+def test_tls_verification_is_enabled():
+    """Certificate verification must never be disabled to fix a connection error.
+
+    This is a financial tool: an unverified TLS connection would let a network
+    attacker feed it fabricated NAV data, which flows straight into valuations
+    and allocation figures. The fix for CERTIFICATE_VERIFY_FAILED is a CA
+    bundle (certifi), never ssl._create_unverified_context or CERT_NONE.
+    """
+    import ssl
+
+    context = amfi_client._SSL_CONTEXT
+    assert context.verify_mode == ssl.CERT_REQUIRED
+    assert context.check_hostname is True
+
+
+def test_client_source_never_disables_verification():
+    import pathlib
+
+    source = pathlib.Path("src/trader_ai/marketdata/amfi_client.py").read_text()
+    for pattern in ("_create_unverified_context", "CERT_NONE", "check_hostname = False"):
+        assert pattern not in source, f"TLS verification weakened via {pattern!r}"

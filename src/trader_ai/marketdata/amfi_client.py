@@ -14,13 +14,24 @@ stdlib urllib only -- no new runtime dependency.
 
 from __future__ import annotations
 
+import ssl
 import urllib.request
 from datetime import date
+
+import certifi
 
 UNIVERSE_URL = "https://portal.amfiindia.com/spages/NAVAll.txt"
 HISTORY_BASE = "https://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx"
 DEFAULT_TIMEOUT = 120
 _AMFI_DATE = "%d-%b-%Y"
+
+# Certificate verification stays ON. Python.org's macOS build does not use the
+# system trust store and ships no CA bundle of its own, so urllib fails with
+# CERTIFICATE_VERIFY_FAILED out of the box. Point OpenSSL at certifi's bundle
+# rather than weakening verification -- this is a financial tool, and an
+# unverified TLS connection would let a network attacker feed it fabricated
+# NAV data.
+_SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
 
 def universe_url() -> str:
@@ -40,7 +51,7 @@ def history_url(start: date, end: date) -> str:
 
 
 def _get(url: str, timeout: int) -> str:
-    with urllib.request.urlopen(url, timeout=timeout) as response:
+    with urllib.request.urlopen(url, timeout=timeout, context=_SSL_CONTEXT) as response:
         return response.read().decode("utf-8", errors="replace")
 
 
