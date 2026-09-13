@@ -1,0 +1,456 @@
+Scheme Code;ISIN Div Payout/ ISIN Growth;ISIN Div Reinvestment;Scheme Name;Plan;Option;Net Asset Value;Date
+Open Ended Schemes(Children’s Fund - Childrens' Fund)
+ 
+Axis Mutual Fund
+ 
+135762;INF846K01WO1;-;Axis Children's Fund;Direct Plan;Growth Option;29.9628;11-Sep-2026
+135765;INF846K01WP8;-;Axis Children's Fund;Direct Plan;IDCW Option;27.6011;11-Sep-2026
+135759;INF846K01WJ1;-;Axis Children's Fund;Regular Plan;Growth Option;26.0960;11-Sep-2026
+135760;INF846K01WK9;-;Axis Children's Fund;Regular Plan;IDCW Option;24.0757;11-Sep-2026
+135764;INF846K01WR4;-;Axis Children's Fund;Direct Plan;Growth Option;30.5358;11-Sep-2026
+135763;INF846K01WS2;INF846K01WQ6;Axis Children's Fund;Direct Plan;IDCW Option;27.6533;11-Sep-2026
+135766;INF846K01WM5;-;Axis Children's Fund;Regular Plan;Growth Option;26.0928;11-Sep-2026
+135761;INF846K01WN3;INF846K01WL7;Axis Children's Fund;Regular Plan;IDCW Option;24.0539;11-Sep-2026
+ 
+Open Ended Schemes(Debt Scheme - Banking and PSU Fund)
+ 
+Aditya Birla Sun Life Mutual Fund
+ 
+119551;INF209KA12Z1;INF209KA13Z9;Aditya Birla Sun Life Banking & PSU Debt Fund;Direct Plan;IDCW-Re-investment;107.0790;11-Sep-2026
+119552;INF209K01YM2;-;Aditya Birla Sun Life Banking & PSU Debt Fund;Direct Plan;MONTHLY DCW Payout;116.9690;11-Sep-2026
+119553;INF209K01YO8;-;Aditya Birla Sun Life Banking & PSU Debt Fund;Direct Plan;QUARTERLY IDCW Payout;105.1077;11-Sep-2026
+108272;INF209K01LX6;INF209KA11Z3;Aditya Birla Sun Life Banking & PSU Debt Fund;Regular Plan;IDCW-Re-investment;149.7999;11-Sep-2026
+110282;INF209K01LU2;-;Aditya Birla Sun Life Banking & PSU Debt Fund;Regular Plan;MONTHLY IDCW Payout;112.2039;11-Sep-2026
+108274;INF209K01LN7;-;Aditya Birla Sun Life Banking & PSU Debt Fund;Regular Plan;QUARTERLY IDCW Payout;102.6349;11-Sep-2026
+108273;INF209K01LV0;-;Aditya Birla Sun Life Banking & PSU Debt Fund;Regular Plan;GROWTH;388.0645;11-Sep-2026
+119550;INF209K01YN0;-;Aditya Birla Sun Life Banking & PSU Debt Fund;Direct Plan;GROWTH;404.3930;11-Sep-2026
+ 
+Franklin Templeton Mutual Fund
+ 
+129008;INF090I01KR8;-;Franklin India Banking & PSU Debt Fund;Direct Plan;Growth;25.3079;11-Sep-2026
+129006;INF090I01KO5;-;Franklin India Banking & PSU Debt Fund;Regular Plan;Growth;24.1390;11-Sep-2026
+129009;INF090I01KS6;INF090I01KT4;Franklin India Banking & PSU Debt Fund;Direct Plan;IDCW;11.6321;11-Sep-2026
+129007;INF090I01KP2;INF090I01KQ0;Franklin India Banking & PSU Debt Fund;Regular Plan;IDCW;10.9948;11-Sep-2026
+ 
+HDFC Mutual Fund
+ 
+128628;INF179KA1JC4;-;HDFC Banking and PSU Debt Fund;Regular Plan;Growth Option;24.3825;11-Sep-2026
+128629;INF179KA1IZ7;-;HDFC Banking and PSU Debt Fund;Direct Plan;Growth Option;25.5011;11-Sep-2026
+128627;INF179KA1JD2;INF179KA1JE0;HDFC Banking and PSU Debt Fund;Regular Plan;IDCW Option;10.1131;11-Sep-2026
+128626;INF179KA1JA8;INF179KA1JB6;HDFC Banking and PSU Debt Fund;Direct Plan;IDCW Option;10.0066;11-Sep-2026
+ 
+ITI Mutual Fund
+ 
+148534;INF00XX01861;-;ITI Banking & PSU Debt Fund;Direct Plan;Growth Option;14.2292;11-Sep-2026
+148536;INF00XX01879;INF00XX01887;ITI Banking & PSU Debt Fund;Direct Plan;IDCW Option;14.2276;11-Sep-2026
+148535;INF00XX01838;-;ITI Banking & PSU Debt Fund;Regular Plan;Growth Option;13.7773;11-Sep-2026
+148533;INF00XX01846;INF00XX01853;ITI Banking & PSU Debt Fund;Regular Plan;IDCW Option;13.7785;11-Sep-2026
+ 
+Kotak Mahindra Mutual Fund
+ 
+123690;INF174K01FO3;-;Kotak Banking and PSU Debt Fund;Regular Plan;Growth;69.5671;11-Sep-2026
+123691;INF174K01FQ8;INF174K01FP0;Kotak Banking and PSU Debt Fund;Regular Plan;Payout of Income Distribution cum capital withdrawal option- Direct;13.0702;11-Sep-2026
+123689;INF174K01KI5;INF174K01KJ3;Kotak Banking and PSU Debt Fund;Direct Plan;Annual Dividend;17.1427;15-Sep-2017
+123693;INF174K01KH7;-;Kotak Banking and PSU Debt Fund;Direct Plan;Growth;72.7886;11-Sep-2026
+123692;INF174K01KK1;INF174K01KL9;Kotak Banking and PSU Debt Fund;Direct Plan;Monthly Payout of Income Distribution cum capital withdrawal option;10.2242;11-Sep-2026
+ 
+Open Ended Schemes(Debt Scheme - Corporate Bond Fund)
+ 
+Aditya Birla Sun Life Mutual Fund
+ 
+119533;INF209K01S38;-;Aditya Birla Sun Life Corporate Bond Fund;Direct Plan;GROWTH;121.7520;11-Sep-2026
+103178;INF209K01785;-;Aditya Birla Sun Life Corporate Bond Fund;Regular Plan;GROWTH;119.4532;11-Sep-2026
+124832;INF209KA1KT0;-;Aditya Birla Sun Life Corporate Bond Fund;Direct Plan;IDCW Payout;10.6555;11-Sep-2026
+119532;INF209K01N90;INF209KA1KU8;Aditya Birla Sun Life Corporate Bond Fund;Direct Plan;Monthly IDCW Re-investment;12.8148;11-Sep-2026
+124833;INF209KA1KS2;-;Aditya Birla Sun Life Corporate Bond Fund;Regular Plan;IDCW Payout;11.9407;11-Sep-2026
+103183;INF209K01983;INF209K01DL8;Aditya Birla Sun Life Corporate Bond Fund;Regular Plan;Monthly IDCW Payout;12.5895;11-Sep-2026
+ 
+Bandhan Mutual Fund
+ 
+139201;INF194KA1T34;INF194KA1T42;BANDHAN Corporate Bond Fund;Direct Plan;Annual IDCW;10.5711;11-Sep-2026
+135916;INF194KA1M23;-;BANDHAN Corporate Bond Fund;Direct Plan;Growth;21.2184;11-Sep-2026
+139200;INF194KA1T00;INF194KA1T18;BANDHAN Corporate Bond Fund;Direct Plan;Half Yearly IDCW;11.9066;11-Sep-2026
+139198;INF194KA1S43;INF194KA1S50;BANDHAN Corporate Bond Fund;Direct Plan;Monthly IDCW;10.3638;11-Sep-2026
+135917;INF194KA1M31;INF194KA1M49;BANDHAN Corporate Bond Fund;Direct Plan;Periodic IDCW;14.0772;11-Sep-2026
+139199;INF194KA1S76;INF194KA1S84;BANDHAN Corporate Bond Fund;Direct Plan;Quarterly IDCW;10.7476;11-Sep-2026
+139204;INF194KA1S19;INF194KA1S27;BANDHAN Corporate Bond Fund;Regular Plan;Annual IDCW;10.5473;11-Sep-2026
+135914;INF194KA1L81;-;BANDHAN Corporate Bond Fund;Regular Plan;Growth;20.5269;11-Sep-2026
+139203;INF194KA1R85;INF194KA1R93;BANDHAN Corporate Bond Fund;Regular Plan;Half Yearly IDCW;11.2559;11-Sep-2026
+139202;INF194KA1R28;INF194KA1R36;BANDHAN Corporate Bond Fund;Regular Plan;Monthly IDCW;10.6166;11-Sep-2026
+135915;INF194KA1L99;INF194KA1M07;BANDHAN Corporate Bond Fund;Regular Plan;Periodic IDCW;13.8378;11-Sep-2026
+139205;INF194KA1R51;INF194KA1R69;BANDHAN Corporate Bond Fund;Regular Plan;Quarterly IDCW;10.7731;11-Sep-2026
+ 
+Baroda BNP Paribas Mutual Fund
+ 
+150230;INF251K01EN4;INF251K01EO2;BARODA BNP PARIBAS CORPORATE BOND FUND;;Annual IDCW Option;12.2834;11-Sep-2026
+150229;INF251K01EI4;-;BARODA BNP PARIBAS CORPORATE BOND FUND;;Growth Option;34.1239;11-Sep-2026
+150231;INF251K01EJ2;INF251K01EK0;BARODA BNP PARIBAS CORPORATE BOND FUND;;Monthly IDCW Option;10.3570;11-Sep-2026
+150228;INF251K01EL8;INF251K01EM6;BARODA BNP PARIBAS CORPORATE BOND FUND;;Quarterly IDCW Option;10.4530;11-Sep-2026
+150236;INF251K01GU4;INF251K01GV2;BARODA BNP PARIBAS CORPORATE BOND FUND;Direct Plan;Annual IDCW Option;12.5927;11-Sep-2026
+150237;INF251K01GP4;-;BARODA BNP PARIBAS CORPORATE BOND FUND;Direct Plan;Growth Option;31.4163;11-Sep-2026
+150238;INF251K01GQ2;INF251K01GR0;BARODA BNP PARIBAS CORPORATE BOND FUND;Direct Plan;Monthly IDCW Option;10.5795;11-Sep-2026
+150239;INF251K01GS8;INF251K01GT6;BARODA BNP PARIBAS CORPORATE BOND FUND;Direct Plan;Quarterly IDCW Option;10.7126;11-Sep-2026
+150233;INF251K01EU9;INF251K01EV7;BARODA BNP PARIBAS CORPORATE BOND FUND;Regular Plan;Annual IDCW Option;12.2039;11-Sep-2026
+150235;INF251K01EP9;-;BARODA BNP PARIBAS CORPORATE BOND FUND;Regular Plan;Growth Option;29.4827;11-Sep-2026
+150234;INF251K01EQ7;INF251K01ER5;BARODA BNP PARIBAS CORPORATE BOND FUND;Regular Plan;Monthly IDCW Option;10.4031;11-Sep-2026
+150232;INF251K01ES3;INF251K01ET1;BARODA BNP PARIBAS CORPORATE BOND FUND;Regular Plan;Quarterly IDCW Option;10.4659;11-Sep-2026
+ 
+DSP Mutual Fund
+ 
+ 
+HDFC Mutual Fund
+ 
+ 
+ICICI Prudential Mutual Fund
+ 
+ 
+Nippon India Mutual Fund
+ 
+ 
+PGIM India Mutual Fund
+ 
+ 
+SBI Mutual Fund
+ 
+ 
+Sundaram Mutual Fund
+ 
+ 
+Tata Mutual Fund
+ 
+ 
+Trust Mutual Fund
+ 
+ 
+Union Mutual Fund
+ 
+ 
+UTI Mutual Fund
+ 
+ 
+Open Ended Schemes(Debt Scheme - Credit Risk Fund)
+ 
+Aditya Birla Sun Life Mutual Fund
+ 
+134385;INF209KA1K96;INF209KA1L04;Aditya Birla Sun Life Credit Risk Fund;Direct Plan;IDCW Re-investment;14.7221;11-Sep-2026
+134388;INF209KA1L12;-;Aditya Birla Sun Life Credit Risk Fund;Direct Plan;Bonus;28.1427;11-Sep-2026
+134387;INF209KA1K88;-;Aditya Birla Sun Life Credit Risk Fund;Direct Plan;GROWTH;28.1439;11-Sep-2026
+134386;INF209KA1K54;INF209KA1K62;Aditya Birla Sun Life Credit Risk Fund;Regular Plan;IDCW Payout;13.2881;11-Sep-2026
+134384;INF209KA1K70;-;Aditya Birla Sun Life Credit Risk Fund;;;17.7004;23-May-2023
+134383;INF209KA1K47;-;Aditya Birla Sun Life Credit Risk Fund;Regular Plan;GROWTH;25.4250;11-Sep-2026
+ 
+Bandhan Mutual Fund
+ 
+140605;INF194KA1X04;INF194KA1X12;BANDHAN CREDIT RISK FUND;Direct Plan;Half Yearly IDCW;10.4464;11-Sep-2026
+140608;INF194KA1W05;INF194KA1W13;BANDHAN CREDIT RISK FUND;Regular Plan;Annual IDCW;10.4846;11-Sep-2026
+140609;INF194KA1W39;-;BANDHAN CREDIT RISK FUND;Regular Plan;Growth;17.3631;11-Sep-2026
+140611;INF194KA1V71;INF194KA1V89;BANDHAN CREDIT RISK FUND;Regular Plan;Half Yearly IDCW;10.4323;11-Sep-2026
+140612;INF194KA1V14;INF194KA1V22;BANDHAN CREDIT RISK FUND;Regular Plan;Periodic IDCW;13.4832;11-Sep-2026
+140607;INF194KA1V48;INF194KA1V55;BANDHAN CREDIT RISK FUND;Regular Plan;Quarterly IDCW;10.6411;11-Sep-2026
+140610;INF194KA1X38;INF194KA1X46;BANDHAN CREDIT RISK FUND;Direct Plan;Annual IDCW;10.6031;11-Sep-2026
+140603;INF194KA1X61;-;BANDHAN CREDIT RISK FUND;Direct Plan;Growth;19.0751;11-Sep-2026
+140606;INF194KA1W47;INF194KA1W54;BANDHAN CREDIT RISK FUND;Direct Plan;Periodic IDCW;14.2148;11-Sep-2026
+140604;INF194KA1W70;INF194KA1W88;BANDHAN CREDIT RISK FUND;Direct Plan;Quarterly IDCW;10.8676;11-Sep-2026
+ 
+Bank of India Mutual Fund
+ 
+133868;INF761K01DG8;-;BANK OF INDIA CREDIT RISK FUND;Direct Plan;Growth;14.8851;11-Sep-2026
+133867;INF761K01DH6;-;BANK OF INDIA CREDIT RISK FUND;Regular Plan;Growth;14.4637;11-Sep-2026
+ 
+DSP Mutual Fund
+ 
+119084;INF740K01OV8;INF740K01OW6;DSP Credit Risk Fund;Direct Plan;Monthly IDCW;11.2153;11-Sep-2026
+119082;INF740K01OS4;-;DSP Credit Risk Fund;Direct Plan;Growth;60.8552;11-Sep-2026
+119083;INF740K01OT2;INF740K01OU0;DSP Credit Risk Fund;Direct Plan;IDCW;12.7564;11-Sep-2026
+119087;-;INF740KA1NX2;DSP Credit Risk Fund;Direct Plan;Daily IDCW;11.1131;11-Sep-2026
+119085;INF740K01OX4;INF740K01OY2;DSP Credit Risk Fund;Direct Plan;Quarterly IDCW;11.6739;11-Sep-2026
+119086;INF740KA1NY0;INF740KA1NZ7;DSP Credit Risk Fund;Direct Plan;Weekly IDCW;11.1152;11-Sep-2026
+101839;INF740K01581;INF740K01AB9;DSP Credit Risk Fund;Regular Plan;IDCW;12.6545;11-Sep-2026
+101840;-;INF740KA1OA8;DSP Credit Risk Fund;Regular Plan;Daily IDCW;11.1126;11-Sep-2026
+117061;INF740K01JW6;INF740K01JV8;DSP Credit Risk Fund;Regular Plan;Monthly IDCW;11.2749;11-Sep-2026
+117062;INF740K01JY2;INF740K01JX4;DSP Credit Risk Fund;Regular Plan;Quarterly IDCW;11.5868;11-Sep-2026
+101838;INF740K01FR4;INF740K01FQ6;DSP Credit Risk Fund;Regular Plan;Weekly IDCW;11.1148;11-Sep-2026
+101837;INF740K01599;-;DSP Credit Risk Fund;Regular Plan;Growth;55.2240;11-Sep-2026
+ 
+Franklin Templeton Mutual Fund
+ 
+ 
+ICICI Prudential Mutual Fund
+ 
+ 
+Kotak Mahindra Mutual Fund
+ 
+ 
+Nippon India Mutual Fund
+ 
+ 
+SBI Mutual Fund
+ 
+ 
+UTI Mutual Fund
+ 
+ 
+Open Ended Schemes(Debt Scheme - Dynamic Bond)
+ 
+Franklin Templeton Mutual Fund
+ 
+118495;INF090I01HB8;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);Direct Plan;;84.0329;07-Aug-2022
+118496;INF090I01GZ9;INF090I01HA0;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);Direct Plan;;14.1635;07-Aug-2022
+100498;INF090I01BN6;INF090I01BO4;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);;;15.6675;07-Aug-2022
+148308;INF090I01WD3;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);Direct Plan;Growth;0.0000;11-Sep-2026
+148307;INF090I01WB7;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);Regular Plan;Growth;0.0000;11-Sep-2026
+147982;INF090I01TS7;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);Direct Plan;;0.0000;20-Jul-2020
+147984;INF090I01TT5;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);Direct Plan;;0.0000;20-Jul-2020
+147983;INF090I01TQ1;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);;;0.0000;20-Jul-2020
+147981;INF090I01TR9;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);;;0.0000;20-Jul-2020
+147985;INF090I01TU3;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);;;0.0000;11-Sep-2023
+147988;INF090I01TX7;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);Direct Plan;;0.0000;11-Sep-2023
+147987;INF090I01TV1;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);;;0.0000;11-Sep-2023
+148309;INF090I01WA9;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);Regular Plan;IDCW;0.0000;11-Sep-2026
+100499;INF090I01BP1;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);;;94.7880;07-Aug-2022
+147986;INF090I01TW9;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);Direct Plan;;0.0000;11-Sep-2023
+148310;INF090I01WC5;-;Franklin India Dynamic Accrual Fund (No. of segregated portfolios- 3);Direct Plan;IDCW;0.0000;11-Sep-2026
+ 
+Quantum Mutual Fund
+ 
+134494;INF082J01176;-;Quantum Dynamic Term Fund;Direct Plan;Growth Option;22.6843;11-Sep-2026
+134493;INF082J01184;INF082J01192;Quantum Dynamic Term Fund;Direct Plan;Monthly IDCW;10.3362;11-Sep-2026
+141061;INF082J01218;-;Quantum Dynamic Term Fund;Regular Plan;Growth Option;22.1910;11-Sep-2026
+141060;INF082J01226;INF082J01234;Quantum Dynamic Term Fund;Regular Plan;Monthly IDCW;10.3857;11-Sep-2026
+ 
+Tata Mutual Fund
+ 
+119097;INF277K01MV5;-;Tata Dynamic Bond Fund;Direct Plan;Growth Option;38.2366;23-Sep-2022
+101909;INF277K01360;-;Tata Dynamic Bond Fund;Regular Plan;Growth Option;34.9217;23-Sep-2022
+101224;INF277K01DE0;INF277K01352;Tata Dynamic Bond Fund;Regular Plan;Payout of IDCW Option;20.1116;23-Sep-2022
+119098;INF277K01MT9;INF277K01MU7;Tata Dynamic Bond Fund;Direct Plan;Payout of IDCW Option;22.6907;23-Sep-2022
+ 
+UTI Mutual Fund
+ 
+148118;INF789F1APX7;-;UTI - Dynamic Bond Fund ( Segregated - 17022020);;;1.3473;27-Jan-2022
+148117;INF789F1APO6;-;UTI - Dynamic Bond Fund ( Segregated - 17022020);;;1.2708;27-Jan-2022
+148125;INF789F1AQC9;INF789F1AQD7;UTI - Dynamic Bond Fund ( Segregated - 17022020);;;0.7238;27-Jan-2022
+148124;INF789F1AQE5;INF789F1AQF2;UTI - Dynamic Bond Fund ( Segregated - 17022020);;;0.7329;27-Jan-2022
+148120;INF789F1AQA3;INF789F1AQB1;UTI - Dynamic Bond Fund ( Segregated - 17022020);;;0.7258;27-Jan-2022
+148121;INF789F1APY5;INF789F1APZ2;UTI - Dynamic Bond Fund ( Segregated - 17022020);;;1.0369;27-Jan-2022
+ 
+Interval Fund Schemes(Income)
+ 
+Kotak Mahindra Mutual Fund
+ 
+146839;-;INF174KA1DD0;Kotak Monthly Interval Plan Series 4;;;10.0087785;17-Apr-2019
+146837;INF174KA1DB4;-;Kotak Monthly Interval Plan Series 4;;;0.0001;22-Apr-2019
+146840;-;INF174KA1DC2;Kotak Monthly Interval Plan Series 4;;;10.00871954;17-Apr-2019
+146835;INF174KA1CZ5;-;Kotak Monthly Interval Plan Series 4;;;10.07183073;17-Apr-2019
+145440;INF174KA1913;-;Kotak Quarterly Interval Plan Sr. 12;;;10.40029408;05-May-2019
+145441;INF174KA1863;-;Kotak Quarterly Interval Plan Sr. 12;;;10.018167;05-May-2019
+145437;INF174KA1889;-;Kotak Quarterly Interval Plan Sr. 12;;;10.39494886;05-May-2019
+146602;INF174KA1CI1;-;Kotak Quarterly Interval Plan Sr. 13;;;10.0036;30-May-2019
+146599;INF174KA1CJ9;-;Kotak Quarterly Interval Plan Sr. 13;;;10.1855;30-May-2019
+146598;INF174KA1CG5;-;Kotak Quarterly Interval Plan Sr. 13;;;10.0029;30-May-2019
+146601;INF174KA1CH3;-;Kotak Quarterly Interval Plan Sr. 13;;;10.1862;30-May-2019
+ 
+Nippon India Mutual Fund
+ 
+118804;INF204K01B81;-;Nippon India Interval Fund Annual Interval Fund Series-I;;;28.6530;22-Apr-2026
+105660;INF204K01ED4;INF204K01EE2;Nippon India Interval Fund Annual Interval Fund Series-I;;;13.3009;22-Apr-2026
+105662;INF204K01EA0;INF204K01EB8;Nippon India Interval Fund Annual Interval Fund Series-I;;;13.2403;22-Apr-2026
+105663;INF204K01EC6;-;Nippon India Interval Fund Annual Interval Fund Series-I;;;28.3256;22-Apr-2026
+105661;INF204K01DZ9;-;Nippon India Interval Fund Annual Interval Fund Series-I;;;38.0238;22-Apr-2026
+145667;INF204KB1P74;-;Nippon India Interval Fund V - Series 2;;;10.0000;19-Dec-2019
+145670;INF204KB1P66;-;Nippon India Interval Fund V - Series 2;;;10.8556;19-Dec-2019
+145668;INF204KB1P58;-;Nippon India Interval Fund V - Series 2;;;10.0001;19-Dec-2019
+145669;INF204KB1P41;-;Nippon India Interval Fund V - Series 2;;;10.8332;19-Dec-2019
+145348;INF204KB1M51;-;Nippon India Interval Fund V- Series 1;;;10.0000;31-Oct-2019
+145350;INF204KB1M44;-;Nippon India Interval Fund V- Series 1;;;10.8758;31-Oct-2019
+145349;INF204KB1M36;-;Nippon India Interval Fund V- Series 1;;;10.0000;31-Oct-2019
+145347;INF204KB1M28;-;Nippon India Interval Fund V- Series 1;;;10.8539;31-Oct-2019
+105691;INF204K01DR6;INF204K01DS4;Nippon India Interval Fund-Quarterly Interval Fund Serie-II;Regular Plan;Institutional Plan -Dividend Option;10.0304;07-Nov-2016
+105689;INF204K01DN5;-;Nippon India Interval Fund-Quarterly Interval Fund Serie-II;Regular Plan;Growth Option;38.5504;11-Sep-2026
+118689;INF204K01F46;INF204K01F53;Nippon India Interval Fund-Quarterly Interval Fund Serie-II;Direct Plan;IDCW Option;13.5689;11-Sep-2026
+118691;INF204K01F61;-;Nippon India Interval Fund-Quarterly Interval Fund Serie-II;Direct Plan;Growth Option;39.1566;11-Sep-2026
+105692;INF204K01DO3;INF204K01DP0;Nippon India Interval Fund-Quarterly Interval Fund Serie-II;Regular Plan;IDCW Option;13.5176;11-Sep-2026
+120800;INF204K01M47;INF204K01M54;Nippon India Yearly Interval Fund - Series 1;;;10.0000;23-Feb-2021
+ 
+Close Ended Schemes(ELSS)
+ 
+Bank of India Mutual Fund
+ 
+141950;INF761K01DS3;-;BANK OF INDIA MID CAP TAX FUND SERIES 1;Direct Plan;Growth;31.37;11-Sep-2026
+141949;INF761K01DT1;-;BANK OF INDIA MID CAP TAX FUND SERIES 1;Direct Plan;IDCW;31.37;11-Sep-2026
+141952;INF761K01DU9;-;BANK OF INDIA MID CAP TAX FUND SERIES 1;Regular Plan;Growth;30.22;11-Sep-2026
+141951;INF761K01DV7;-;BANK OF INDIA MID CAP TAX FUND SERIES 1;Regular Plan;IDCW;30.22;11-Sep-2026
+144315;INF761K01EL6;-;BANK OF INDIA MID CAP TAX FUND Series 2;Direct Plan;Growth;36.43;11-Sep-2026
+144309;INF761K01EK8;-;BANK OF INDIA MID CAP TAX FUND Series 2;Direct Plan;IDCW;36.43;11-Sep-2026
+144314;INF761K01EN2;-;BANK OF INDIA MID CAP TAX FUND Series 2;Regular Plan;Growth;34.98;11-Sep-2026
+144316;INF761K01EM4;-;BANK OF INDIA MID CAP TAX FUND Series 2;Regular Plan;IDCW;34.99;11-Sep-2026
+ 
+ICICI Prudential Mutual Fund
+ 
+142136;INF109KC1077;-;ICICI Prudential Long Term Wealth Enhancement Fund;;;28.26;11-Sep-2026
+142134;INF109KC1093;-;ICICI Prudential Long Term Wealth Enhancement Fund;;;29.60;11-Sep-2026
+142133;INF109KC1101;-;ICICI Prudential Long Term Wealth Enhancement Fund;;;29.60;11-Sep-2026
+142135;INF109KC1085;-;ICICI Prudential Long Term Wealth Enhancement Fund;;;28.26;11-Sep-2026
+112101;INF109KA1XQ0;-;ICICI Prudential R.I.G.H.T (Rewards of Investing & Generation of Healthy Tax-Savings) Fund;;;22.73;26-Sep-2019
+112100;INF109KA1XP2;-;ICICI Prudential R.I.G.H.T (Rewards of Investing & Generation of Healthy Tax-Savings) Fund;;;39.09;26-Sep-2019
+ 
+Nippon India Mutual Fund
+ 
+107900;INF204K01ON2;-;Reliance Equity Linked Saving Fund - Series I;;;32.0820;02-Apr-2018
+107901;INF204K01OM4;-;Reliance Equity Linked Saving Fund - Series I;;;32.0820;02-Apr-2018
+ 
+SBI Mutual Fund
+ 
+140487;INF200KA1LS9;-;SBI Long Term Advantage Fund - Series IV;Direct Plan;Growth;48.5916;11-Sep-2026
+140486;INF200KA1LT7;-;SBI Long Term Advantage Fund - Series IV;Direct Plan;IDCW;41.2311;11-Sep-2026
+140488;INF200KA1LQ3;-;SBI Long Term Advantage Fund - Series IV;Regular Plan;Growth;46.0789;11-Sep-2026
+140489;INF200KA1LR1;-;SBI Long Term Advantage Fund - Series IV;Regular Plan;IDCW;39.0381;11-Sep-2026
+142138;INF200KA1RW8;-;SBI Long Term Advantage Fund - Series V;Direct Plan;Growth;33.3876;11-Sep-2026
+142140;INF200KA1RX6;-;SBI Long Term Advantage Fund - Series V;Direct Plan;IDCW;33.3888;11-Sep-2026
+142137;INF200KA1RV0;-;SBI Long Term Advantage Fund - Series V;Regular Plan;IDCW;31.9918;11-Sep-2026
+142139;INF200KA1RU2;-;SBI Long Term Advantage Fund - Series V;Regular Plan;Growth;32.0051;11-Sep-2026
+143178;INF200KA1TO1;-;SBI Long Term Advantage Fund - Series VI;Direct Plan;Growth;31.9007;11-Sep-2026
+143179;INF200KA1TP8;-;SBI Long Term Advantage Fund - Series VI;Direct Plan;IDCW;31.8735;11-Sep-2026
+143176;INF200KA1TM5;-;SBI Long Term Advantage Fund - Series VI;Regular Plan;Growth;30.5975;11-Sep-2026
+143177;INF200KA1TN3;-;SBI Long Term Advantage Fund - Series VI;Regular Plan;IDCW;30.6040;11-Sep-2026
+ 
+Sundaram Mutual Fund
+ 
+139711;INF903JA1443;-;SUNDARAM LONG TERM MICRO CAP TAX ADVANTAGE FUND SERIES III;;;36.9626;11-Sep-2026
+139710;INF903JA1450;-;SUNDARAM LONG TERM MICRO CAP TAX ADVANTAGE FUND SERIES III;;;32.4148;11-Sep-2026
+ 
+UTI Mutual Fund
+ 
+ 
+Close Ended Schemes(Growth)
+ 
+HDFC Mutual Fund
+ 
+141581;INF179KC1AL2;-;HDFC Equity Opp Fund - II - 1100D June 2017 (1);;;13.298;20-Jan-2022
+141580;INF179KC1AJ6;-;HDFC Equity Opp Fund - II - 1100D June 2017 (1);;;13.895;20-Jan-2022
+141579;INF179KC1AM0;-;HDFC Equity Opp Fund - II - 1100D June 2017 (1);;;10.000;20-Jan-2022
+141578;INF179KC1AK4;-;HDFC Equity Opp Fund - II - 1100D June 2017 (1);;;10.000;20-Jan-2022
+141429;INF179KC1AH0;-;HDFC Equity Opp Fund - II - 1126D May 2017 (1);;;14.316;14-Jan-2022
+141430;INF179KC1AF4;-;HDFC Equity Opp Fund - II - 1126D May 2017 (1);;;14.837;14-Jan-2022
+141431;INF179KC1AI8;-;HDFC Equity Opp Fund - II - 1126D May 2017 (1);;;10;14-Jan-2022
+141428;INF179KC1AG2;-;HDFC Equity Opp Fund - II - 1126D May 2017 (1);;;10;14-Jan-2022
+ 
+ICICI Prudential Mutual Fund
+ 
+142952;INF109KC1BL5;-;ICICI Prudential Bharat Consumption Fund - Series 1;;;15.62;01-Nov-2021
+142951;INF109KC1BN1;-;ICICI Prudential Bharat Consumption Fund - Series 1;;;16.04;01-Nov-2021
+142950;INF109KC1BO9;-;ICICI Prudential Bharat Consumption Fund - Series 1;;;16.04;01-Nov-2021
+142949;INF109KC1BM3;-;ICICI Prudential Bharat Consumption Fund - Series 1;;;15.62;01-Nov-2021
+143152;INF109KC1CV2;-;ICICI Prudential Bharat Consumption Fund - Series 2;;;15.77;23-Nov-2021
+143153;INF109KC1CX8;-;ICICI Prudential Bharat Consumption Fund - Series 2;;;16.14;23-Nov-2021
+143154;INF109KC1CY6;-;ICICI Prudential Bharat Consumption Fund - Series 2;;;16.14;23-Nov-2021
+143155;INF109KC1CW0;-;ICICI Prudential Bharat Consumption Fund - Series 2;;;15.77;23-Nov-2021
+143964;INF109KC1GQ3;-;ICICI Prudential Bharat Consumption Fund - Series 3;;;16.55;07-Feb-2022
+143961;INF109KC1GS9;-;ICICI Prudential Bharat Consumption Fund - Series 3;;;17.01;07-Feb-2022
+143962;INF109KC1GT7;-;ICICI Prudential Bharat Consumption Fund - Series 3;;;17.01;07-Feb-2022
+143963;INF109KC1GR1;-;ICICI Prudential Bharat Consumption Fund - Series 3;;;16.55;07-Feb-2022
+144445;INF109KC1IU1;-;ICICI Prudential Bharat Consumption Fund - Series 4;;;14.76;11-Mar-2022
+144448;INF109KC1IW7;-;ICICI Prudential Bharat Consumption Fund - Series 4;;;15.13;11-Mar-2022
+144447;INF109KC1IX5;-;ICICI Prudential Bharat Consumption Fund - Series 4;;;15.13;11-Mar-2022
+144446;INF109KC1IV9;-;ICICI Prudential Bharat Consumption Fund - Series 4;;;14.76;11-Mar-2022
+145446;INF109KC1NO4;-;ICICI Prudential Bharat Consumption Fund - Series 5;;;18.19;01-Dec-2021
+145443;INF109KC1NQ9;-;ICICI Prudential Bharat Consumption Fund - Series 5;;;18.51;01-Dec-2021
+145444;INF109KC1NR7;-;ICICI Prudential Bharat Consumption Fund - Series 5;;;18.51;01-Dec-2021
+145445;INF109KC1NP1;-;ICICI Prudential Bharat Consumption Fund - Series 5;;;18.19;01-Dec-2021
+135406;INF109KB1MX8;-;ICICI Prudential Business Cycle Fund - Series 1;;;12.80;09-Apr-2019
+135404;INF109KB1MV2;-;ICICI Prudential Business Cycle Fund - Series 1;;;13.27;09-Apr-2019
+ 
+Kotak Mahindra Mutual Fund
+ 
+ 
+Nippon India Mutual Fund
+ 
+ 
+UTI Mutual Fund
+ 
+ 
+Close Ended Schemes(Income)
+ 
+Aditya Birla Sun Life Mutual Fund
+ 
+152250;INF209KB11Y4;-;Aditya Birla Sun Life Fixed Maturity Plan - Series UQ (92 days);;;10.1879;12-Mar-2024
+152251;INF209KB12Y2;-;Aditya Birla Sun Life Fixed Maturity Plan - Series UQ (92 days);;;10.;12-Mar-2024
+152253;INF209KB19X9;-;Aditya Birla Sun Life Fixed Maturity Plan - Series UQ (92 days);;;10.184;12-Mar-2024
+152252;INF209KB10Y6;-;Aditya Birla Sun Life Fixed Maturity Plan - Series UQ (92 days);;;10.;12-Mar-2024
+152259;INF209KB15Y5;-;Aditya Birla Sun Life Fixed Maturity Plan - Series UR (85 days);;;10.1718;13-Mar-2024
+152262;INF209KB16Y3;-;Aditya Birla Sun Life Fixed Maturity Plan - Series UR (85 days);;;10.;13-Mar-2024
+152260;INF209KB13Y0;-;Aditya Birla Sun Life Fixed Maturity Plan - Series UR (85 days);;;10.1694;13-Mar-2024
+152261;INF209KB14Y8;-;Aditya Birla Sun Life Fixed Maturity Plan - Series UR (85 days);;;10.;13-Mar-2024
+152332;INF209KB13Z7;-;Aditya Birla Sun Life Fixed Maturity Plan - Series US (100 days);;;10.2094;18-Apr-2024
+152333;INF209KB14Z5;-;Aditya Birla Sun Life Fixed Maturity Plan - Series US (100 days);;;10.;18-Apr-2024
+152334;INF209KB11Z1;-;Aditya Birla Sun Life Fixed Maturity Plan - Series US (100 days);;;10.2066;18-Apr-2024
+152335;INF209KB12Z9;-;Aditya Birla Sun Life Fixed Maturity Plan - Series US (100 days);;;10.;18-Apr-2024
+149017;INF209KB12A2;-;Aditya Birla Sun Life Fixed Term Plan - Series TI (1837 days);;;13.5721;09-Jul-2026
+149018;INF209KB13A0;-;Aditya Birla Sun Life Fixed Term Plan - Series TI (1837 days);;;10.0000;09-Jul-2026
+149015;INF209KB10A6;-;Aditya Birla Sun Life Fixed Term Plan - Series TI (1837 days);;;13.5041;09-Jul-2026
+149016;INF209KB11A4;-;Aditya Birla Sun Life Fixed Term Plan - Series TI (1837 days);;;10.0000;09-Jul-2026
+149062;INF209KB16A3;-;Aditya Birla Sun Life Fixed Term Plan - Series TJ (1838 days);;;13.6352;27-Jul-2026
+149063;INF209KB17A1;-;Aditya Birla Sun Life Fixed Term Plan - Series TJ (1838 days);;;13.6371;27-Jul-2026
+149064;INF209KB14A8;-;Aditya Birla Sun Life Fixed Term Plan - Series TJ (1838 days);;;13.5720;27-Jul-2026
+149065;INF209KB15A5;-;Aditya Birla Sun Life Fixed Term Plan - Series TJ (1838 days);;;13.5720;27-Jul-2026
+150316;INF209KB14H3;-;Aditya Birla Sun Life Fixed Term Plan - Series TQ (1879 days);;;13.3091;11-Sep-2026
+150314;INF209KB12H7;-;Aditya Birla Sun Life Fixed Term Plan - Series TQ (1879 days);;;13.2616;11-Sep-2026
+150315;INF209KB13H5;-;Aditya Birla Sun Life Fixed Term Plan - Series TQ (1879 days);;;13.2614;11-Sep-2026
+151186;INF209KB18P7;-;Aditya Birla Sun Life Fixed Term Plan - Series UB (1224 days);;;12.581;22-Apr-2026
+151189;INF209KB17P9;-;Aditya Birla Sun Life Fixed Term Plan - Series UB (1224 days);;;10.;22-Apr-2026
+151188;INF209KB16P1;-;Aditya Birla Sun Life Fixed Term Plan - Series UB (1224 days);;;12.5389;22-Apr-2026
+151519;INF209KB18S1;-;Aditya Birla Sun Life Fixed Term Plan - Series UF (180 days);;;10.3716;29-Aug-2023
+151522;INF209KB19S9;-;Aditya Birla Sun Life Fixed Term Plan - Series UF (180 days);;;10.;29-Aug-2023
+151521;INF209KB16S5;-;Aditya Birla Sun Life Fixed Term Plan - Series UF (180 days);;;10.3665;29-Aug-2023
+151520;INF209KB17S3;-;Aditya Birla Sun Life Fixed Term Plan - Series UF (180 days);;;10.;29-Aug-2023
+ 
+Axis Mutual Fund
+ 
+ 
+Bandhan Mutual Fund
+ 
+ 
+DSP Mutual Fund
+ 
+ 
+HDFC Mutual Fund
+ 
+ 
+HSBC Mutual Fund
+ 
+ 
+ICICI Prudential Mutual Fund
+ 
+ 
+IL&FS Mutual Fund (IDF)
+ 
+ 
+Kotak Mahindra Mutual Fund
+ 
+ 
+Nippon India Mutual Fund
+ 
+ 
+SBI Mutual Fund
+ 
+ 
+Tata Mutual Fund
+ 
+ 
+Trust Mutual Fund
+ 
+ 
+Union Mutual Fund
+ 
+ 
+UTI Mutual Fund
+ 
+ 
+
+Open Ended Schemes(Exchange Traded Funds (ETFs) - Debt ETF)
+
+Aditya Birla Sun Life Mutual Fund
+
+151533;INF209KB18T9;-;Aditya Birla Sun Life CRISIL Liquid Overnight ETF;;;1000.0000;14-Sep-2026
+154593;INF740KA1ZI7;-;DSP NIFTY 10 YR BENCHMARK G-SEC ETF;;;26.5635;11-Sep-2026
+152891;INF666M01IP5;-;Groww Nifty 1D Rate Liquid ETF;;;110.7383;14-Sep-2026
