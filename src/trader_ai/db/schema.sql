@@ -16,9 +16,18 @@ CREATE TABLE schemes (
     isin            TEXT,
     scheme_name     TEXT NOT NULL,
     asset_class     TEXT NOT NULL DEFAULT 'UNCLASSIFIED'
-                        CHECK (asset_class IN ('EQUITY','DEBT','HYBRID','GOLD','CASH','UNCLASSIFIED')),
-    UNIQUE (folio_id, scheme_name, isin)
+                        CHECK (asset_class IN ('EQUITY','DEBT','HYBRID','GOLD','CASH','UNCLASSIFIED'))
 );
+
+-- NOTE: a table-level UNIQUE(folio_id, scheme_name, isin) does NOT dedupe
+-- schemes whose isin is NULL (casparser types Scheme.isin as Optional), because
+-- SQL treats every NULL as distinct. Such schemes would gain a duplicate row on
+-- every re-import, inflating holdings. Two partial unique indexes cover both
+-- cases -- the same NULL trap as holdings_snapshot below.
+CREATE UNIQUE INDEX idx_schemes_isin_uniq
+    ON schemes(folio_id, scheme_name, isin) WHERE isin IS NOT NULL;
+CREATE UNIQUE INDEX idx_schemes_no_isin_uniq
+    ON schemes(folio_id, scheme_name) WHERE isin IS NULL;
 
 -- Securities: one row per stock (ISIN), held in demat — separate from MF schemes
 -- because casparser reports these as holdings, not scheme transaction streams.

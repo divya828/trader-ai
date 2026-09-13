@@ -103,6 +103,31 @@ def test_reimport_is_idempotent_for_transactions(db):
     assert _count(db, "import_runs") == 2
 
 
+def test_reimport_does_not_duplicate_schemes_with_null_isin(db):
+    # casparser types Scheme.isin as Optional, so a scheme can arrive with no
+    # ISIN. A table-level UNIQUE would not dedupe these (NULL != NULL in SQL),
+    # letting every re-import add another row and inflate holdings.
+    payload = {
+        "statement_period": ("2023-04-01", "2024-03-31"),
+        "folios": CAS_PAYLOAD["folios"],
+        "schemes": [
+            {
+                "folio_number": "12345/67",
+                "amfi_code": None,
+                "isin": None,
+                "scheme_name": "Fund Without ISIN",
+                "scheme_type": None,
+            }
+        ],
+        "transactions": [],
+        "holdings": [],
+    }
+    load_cas(db, payload, source_file="sample.pdf")
+    load_cas(db, payload, source_file="sample.pdf")
+    load_cas(db, payload, source_file="sample.pdf")
+    assert _count(db, "schemes") == 1
+
+
 def test_reimport_records_skipped_duplicates(db):
     load_cas(db, CAS_PAYLOAD, source_file="sample.pdf")
     run_id = load_cas(db, CAS_PAYLOAD, source_file="sample.pdf")
