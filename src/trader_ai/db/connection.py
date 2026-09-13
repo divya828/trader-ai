@@ -23,3 +23,12 @@ def apply_schema(con: sqlite3.Connection) -> None:
     """Create all tables/indexes. Safe to call on a fresh database only."""
     con.executescript(SCHEMA_PATH.read_text())
     con.commit()
+
+
+SCHEMA_V02_PATH = Path(__file__).with_name("schema_v02.sql")
+
+
+def apply_schema_v02(con: sqlite3.Connection) -> None:
+    """Apply the additive v0.2 migration. Requires apply_schema first."""
+    con.executescript(SCHEMA_V02_PATH.read_text())
+    con.commit()
