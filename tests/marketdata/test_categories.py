@@ -67,3 +67,57 @@ def test_real_categories_from_the_fixture_are_handled_without_error():
     for category in {r.sebi_category for r in rows}:
         result = classify_category(category)
         assert result is None or result in VALID
+
+
+# --- coverage against the real AMFI category vocabulary ---
+#
+# The initial seed list was built from the post-2018 open-ended naming and
+# covered only 33.6% of rows in the live file. AMFI also uses close-ended and
+# legacy names ("Income" alone is 4,591 rows), typed ETF categories, and ELSS.
+
+
+def test_close_ended_and_legacy_debt_names_map_to_debt():
+    assert classify_category("Income") == "DEBT"
+    assert classify_category("Income/Debt Oriented Schemes - Short Term Fund") == "DEBT"
+    assert classify_category("Income/Debt Oriented Schemes - Gilt Fund") == "DEBT"
+    assert classify_category("Gilt") == "DEBT"
+
+
+def test_legacy_growth_and_elss_map_to_equity():
+    assert classify_category("Growth") == "EQUITY"
+    assert classify_category("ELSS") == "EQUITY"
+
+
+def test_typed_etf_categories_name_their_own_asset_class():
+    assert classify_category("Exchange Traded Funds (ETFs) - Equity ETF") == "EQUITY"
+    assert classify_category("Exchange Traded Funds (ETFs) - Debt ETF") == "DEBT"
+    assert classify_category("Exchange Traded Funds (ETFs) - Gold ETF") == "GOLD"
+    assert classify_category("Other Scheme - Gold ETF") == "GOLD"
+
+
+def test_untyped_etf_and_fof_categories_stay_unmapped():
+    # These genuinely span asset classes; guessing would corrupt allocation.
+    assert classify_category("Exchange Traded Funds (ETFs) - Other ETF") is None
+    assert classify_category("Other Scheme - Index Funds") is None
+    assert classify_category("Other Scheme - FoF Domestic") is None
+    assert classify_category("Overseas Fund of Funds - Fund of Funds investing overseas") is None
+
+
+def test_longest_prefix_wins_so_compound_names_are_not_mis_hit():
+    # "Income/Debt Oriented Schemes - ..." must not fall through to a shorter
+    # or unrelated prefix. Both resolve to DEBT here, but via the specific key.
+    assert classify_category("Income/Debt Oriented Schemes - Money Market Fund") == "DEBT"
+
+
+def test_real_file_row_coverage_is_materially_complete():
+    """Guard the coverage gain: a regression in the seed list is silent
+    otherwise -- holdings would quietly become UNCLASSIFIED again."""
+    import pathlib
+
+    from trader_ai.marketdata.layouts import UNIVERSE
+    from trader_ai.marketdata.parser import parse
+
+    fixture = pathlib.Path("tests/marketdata/fixtures/navall_sample.txt")
+    rows = parse(fixture.read_text(encoding="utf-8"), UNIVERSE).rows
+    covered = sum(1 for r in rows if classify_category(r.sebi_category))
+    assert covered / len(rows) > 0.75, f"category coverage fell to {covered}/{len(rows)}"
