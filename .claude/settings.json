@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import casparser\")",
+      "Bash(pip index *)",
+      "Bash(mkdir -p docs/superpowers/specs && git init 2>&1 && git status 2>&1)"
+    ],
+    "additionalDirectories": [
+      "/Users/divya.singh/Desktop/gen-ai/projects/trader-ai/docs/superpowers"
+    ]
+  }
+}
