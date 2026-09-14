@@ -101,3 +101,25 @@ def test_subject_accepts_an_isin():
     # ISINs look like INF179K01158 -- similar shape to a PAN, must not be
     # rejected. An ISIN is public reference data, not an identifier of a person.
     assert Subject(kind="SCHEME", ref="INF179K01158").ref == "INF179K01158"
+
+
+def test_subject_carries_an_optional_local_id():
+    """local_id keys redaction on identity rather than name.
+
+    Three real fund names each map to two scheme_ids (the same fund held in
+    two folios). Keying labels on the name collapsed them into one label
+    carrying two different weights.
+    """
+    subject = Subject(kind="SCHEME", ref="Some Fund", weight=0.1, local_id=42)
+    assert subject.local_id == 42
+
+
+def test_local_id_defaults_to_none():
+    assert Subject(kind="PORTFOLIO", ref="portfolio").local_id is None
+
+
+def test_two_subjects_with_one_name_can_differ_by_local_id():
+    a = Subject(kind="SCHEME", ref="ICICI Prudential Technology Fund", local_id=2)
+    b = Subject(kind="SCHEME", ref="ICICI Prudential Technology Fund", local_id=3)
+    assert a != b
+    assert a.local_id != b.local_id
