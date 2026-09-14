@@ -23,9 +23,16 @@ from enum import Enum
 
 VALID_KINDS = ("SCHEME", "SECURITY", "ASSET_CLASS", "PORTFOLIO")
 
-# A folio number looks like "12345/67"; a PAN like "ABCPX1234Z".
+# A folio number looks like "12345/67" or "20244566/ 39".
 _FOLIO_SHAPE = re.compile(r"^\d{3,}\s*/\s*\d+$")
-_PAN_SHAPE = re.compile(r"^[A-Z]{5}[0-9]{4}[A-Z]$")
+
+# A PAN in two forms. The raw form is "ABCPX1234Z". But this project stores
+# PANs masked as first-three + XXX + last-four ("LFGXXX630Q"), and the raw
+# pattern does not match that -- so a masked PAN would have flowed into a
+# Finding unnoticed. Found by testing the guard against the real ledger rather
+# than a synthetic value. Both forms are rejected: a masked PAN is still a
+# derived identifier and has no business in a finding.
+_PAN_SHAPE = re.compile(r"^(?:[A-Z]{5}[0-9]{4}[A-Z]|[A-Z]{3}X{3}[0-9]{3}[A-Z])$")
 
 
 class Severity(Enum):

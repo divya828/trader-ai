@@ -75,3 +75,29 @@ def test_severity_has_four_levels():
 
 def test_severity_orders_by_seriousness():
     assert Severity.HIGH.rank > Severity.MEDIUM.rank > Severity.LOW.rank > Severity.INFO.rank
+
+
+def test_subject_rejects_a_masked_pan_ref():
+    """This project stores PANs masked (first3 + XXX + last4).
+
+    The raw PAN pattern does not match that form, so a masked PAN would have
+    passed straight into a Finding. Caught by testing the guard against a real
+    ledger value rather than a synthetic one. A masked PAN is still a derived
+    identifier and does not belong in a finding.
+    """
+    with pytest.raises(ValueError, match="PAN"):
+        Subject(kind="SCHEME", ref="LFGXXX630Q")
+
+
+def test_subject_still_accepts_a_normal_scheme_name():
+    # The guard must not become so broad it rejects legitimate refs.
+    subject = Subject(
+        kind="SCHEME", ref="HDFC Flexi Cap Fund - Direct Plan - Growth", weight=0.12
+    )
+    assert subject.weight == 0.12
+
+
+def test_subject_accepts_an_isin():
+    # ISINs look like INF179K01158 -- similar shape to a PAN, must not be
+    # rejected. An ISIN is public reference data, not an identifier of a person.
+    assert Subject(kind="SCHEME", ref="INF179K01158").ref == "INF179K01158"
