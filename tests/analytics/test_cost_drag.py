@@ -184,3 +184,43 @@ def test_conservation_covered_plus_uncovered_equals_total(db2):
     report = portfolio_cost_drag(db2)
     assert report.covered_value + report.uncovered_value == pytest.approx(9000.0)
     assert sum(report.exclusions.values()) == pytest.approx(report.uncovered_value)
+
+
+def test_pair_without_enough_nav_history_is_excluded_with_its_own_reason(db2):
+    """A Direct/Regular pair exists but one side has a single NAV point.
+
+    CAGR needs two points, so the drag is uncomputable. This must be its own
+    reason -- it is a cache gap that a backfill would fix, unlike UNKNOWN
+    (the source omits the plan) or NOT_APPLICABLE (no plan distinction
+    exists at all).
+    """
+    from trader_ai.analytics.cost_drag import NO_NAV_HISTORY
+
+    _pair(db2, regular_isin="INF001R", direct_isin="INF001D")
+    _navs(db2, "R1", [("2026-01-07", 120.0)])  # one point only
+    _navs(db2, "D1", [("2026-01-07", 130.0)])
+    _hold(db2, 1, "INF001R", 12000.0)
+    db2.commit()
+    report = portfolio_cost_drag(db2)
+    assert report.exclusions[NO_NAV_HISTORY] == pytest.approx(12000.0)
+    assert report.covered_value == pytest.approx(0.0)
+    assert not report.drag.available
+
+
+def test_every_exclusion_reason_is_distinct():
+    """The five reasons must not collapse: each implies a different remedy.
+
+    NOT_APPLICABLE needs nothing, UNKNOWN needs better source data,
+    NO_SIBLING needs a wider universe, NO_MARKET_DATA needs a refresh, and
+    NO_NAV_HISTORY needs a backfill.
+    """
+    from trader_ai.analytics import cost_drag
+
+    reasons = {
+        cost_drag.NOT_APPLICABLE,
+        cost_drag.UNKNOWN,
+        cost_drag.NO_SIBLING,
+        cost_drag.NO_MARKET_DATA,
+        cost_drag.NO_NAV_HISTORY,
+    }
+    assert len(reasons) == 5
