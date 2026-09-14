@@ -129,3 +129,55 @@ def test_no_portfolio_identifier_near_url_construction():
             assert term not in stripped.lower(), (
                 f"portfolio term {term!r} near URL construction: {stripped}"
             )
+
+
+# --- v0.2b: the literature metrics ---
+
+
+def test_metrics_never_import_the_http_client():
+    # The v0.2b metric modules read cache tables, never the network.
+    offenders = {
+        m for m in _imported_modules(ANALYTICS)
+        if "amfi_client" in m or m.startswith("urllib")
+    }
+    assert not offenders, f"analytics must not reach the network: {offenders}"
+
+
+def test_metrics_reuse_v01_math_rather_than_reimplementing_it():
+    """behaviour_gap must use v0.1's xirr; rebalancing must use its FIFO matcher.
+
+    A second implementation of either would drift from the tested one.
+    """
+    behaviour = pathlib.Path("src/trader_ai/analytics/behavior_gap.py").read_text()
+    assert "from trader_ai.analytics.xirr import" in behaviour
+
+    rebalancing = pathlib.Path("src/trader_ai/analytics/rebalancing.py").read_text()
+    assert "from trader_ai.analytics.tax_lots import" in rebalancing
+
+    consistency = pathlib.Path("src/trader_ai/analytics/consistency.py").read_text()
+    assert "from trader_ai.analytics.nav_series import" in consistency
+
+
+def test_metrics_signal_missing_data_with_measurement_not_none():
+    """Metrics signal unavailability with Measurement, not None.
+
+    A None return invites callers to coerce it to zero, which is how an
+    unmeasured dimension silently becomes a clean one.
+    """
+    for name in ("behavior_gap", "cost_drag"):
+        source = pathlib.Path(f"src/trader_ai/analytics/{name}.py").read_text()
+        assert "Measurement" in source, f"{name} must use Measurement"
+
+
+def test_no_order_placement_code_anywhere():
+    """Non-negotiable #2: nothing in this project places a trade.
+
+    rebalancing.py proposes disposals, so this is the module most likely to
+    drift toward execution. Assert it mechanically.
+    """
+    banned = ("place_order", "submit_order", "execute_trade", "broker_api", "kiteconnect")
+    for package in (ANALYTICS, INGEST, MARKETDATA):
+        for py_file in package.rglob("*.py"):
+            source = py_file.read_text().lower()
+            for term in banned:
+                assert term not in source, f"{py_file} contains {term!r}"
