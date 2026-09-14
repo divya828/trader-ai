@@ -58,3 +58,15 @@ CREATE TABLE health_scores (
                                 -- NULL = unmeasured (no data), distinct from 0
     finding_count INTEGER NOT NULL DEFAULT 0
 );
+
+-- Manual asset-class overrides, keyed by ISIN. Always wins over any inferred
+-- classification. Exists because some SEBI categories -- notably
+-- "Other Scheme - Index Funds" -- span every asset class, so neither the
+-- category map nor name inference can be trusted for them.
+CREATE TABLE md_asset_class_override (
+    isin            TEXT PRIMARY KEY,
+    asset_class     TEXT NOT NULL
+                        CHECK (asset_class IN ('EQUITY','DEBT','HYBRID','GOLD','CASH')),
+    note            TEXT,
+    created_at      TEXT NOT NULL DEFAULT (datetime('now'))
+);

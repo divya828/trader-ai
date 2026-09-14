@@ -135,3 +135,91 @@ def test_backfill_improves_allocation_drift(db2):
     backfill_asset_classes(db2)
     after = latest_values_by_asset_class(db2)
     assert after == {"EQUITY": 2500.0}
+
+
+# --- Layered classification: category -> name -> manual override ---
+
+
+def test_name_inference_fills_what_category_cannot(db2):
+    from trader_ai.marketdata.backfill import backfill_by_name
+
+    _add_ledger_scheme(db2, 1, "INF001A01011", "SBI Nifty 50 Index Fund")
+    db2.execute(
+        "INSERT INTO md_schemes(amfi_code, isin_growth, scheme_name, sebi_category,"
+        " asset_class, last_seen) VALUES ('1','INF001A01011',"
+        " 'SBI Nifty 50 Index Fund','Other Scheme - Index Funds',"
+        " 'UNCLASSIFIED','2026-09-14')"
+    )
+    db2.commit()
+    assert backfill_by_name(db2) == 1
+    assert db2.execute("SELECT asset_class FROM schemes").fetchone()[0] == "EQUITY"
+
+
+def test_name_inference_leaves_ambiguous_names_unclassified(db2):
+    from trader_ai.marketdata.backfill import backfill_by_name
+
+    name = "ICICI Prudential Nifty G-Sec Dec 2030 Index Fund"
+    _add_ledger_scheme(db2, 1, "INF001A01011", name)
+    db2.execute(
+        "INSERT INTO md_schemes(amfi_code, isin_growth, scheme_name, asset_class,"
+        " last_seen) VALUES ('1','INF001A01011',?,'UNCLASSIFIED','2026-09-14')",
+        (name,),
+    )
+    db2.commit()
+    assert backfill_by_name(db2) == 0
+    assert db2.execute("SELECT asset_class FROM schemes").fetchone()[0] == "UNCLASSIFIED"
+
+
+def test_manual_override_wins_over_inference(db2):
+    from trader_ai.marketdata.backfill import classify_all, set_override
+
+    # Category says EQUITY; the user says GOLD. The human decision must win.
+    _add_ledger_scheme(db2, 1, "INF001A01011", "Some Nifty Fund")
+    _add_md_scheme(db2, "100001", "INF001A01011", "EQUITY")
+    set_override(db2, "INF001A01011", "GOLD", note="actually tracks gold")
+    db2.commit()
+    classify_all(db2)
+    assert db2.execute("SELECT asset_class FROM schemes").fetchone()[0] == "GOLD"
+
+
+def test_override_is_idempotent(db2):
+    from trader_ai.marketdata.backfill import apply_overrides, set_override
+
+    _add_ledger_scheme(db2, 1, "INF001A01011")
+    set_override(db2, "INF001A01011", "DEBT")
+    db2.commit()
+    assert apply_overrides(db2) == 1
+    assert apply_overrides(db2) == 0  # already applied
+
+
+def test_set_override_replaces_an_earlier_decision(db2):
+    from trader_ai.marketdata.backfill import apply_overrides, set_override
+
+    _add_ledger_scheme(db2, 1, "INF001A01011")
+    set_override(db2, "INF001A01011", "DEBT")
+    apply_overrides(db2)
+    set_override(db2, "INF001A01011", "GOLD", note="corrected")
+    apply_overrides(db2)
+    assert db2.execute("SELECT asset_class FROM schemes").fetchone()[0] == "GOLD"
+    assert db2.execute("SELECT COUNT(*) FROM md_asset_class_override").fetchone()[0] == 1
+
+
+def test_classify_all_reports_each_layer(db2):
+    from trader_ai.marketdata.backfill import classify_all, set_override
+
+    _add_ledger_scheme(db2, 1, "INF001A01011", "Cat Fund")
+    _add_md_scheme(db2, "100001", "INF001A01011", "EQUITY")
+    _add_ledger_scheme(db2, 2, "INF001A01029", "SBI Nifty 50 Index Fund")
+    db2.execute(
+        "INSERT INTO md_schemes(amfi_code, isin_growth, scheme_name, asset_class,"
+        " last_seen) VALUES ('100002','INF001A01029','SBI Nifty 50 Index Fund',"
+        " 'UNCLASSIFIED','2026-09-14')"
+    )
+    _add_ledger_scheme(db2, 3, "INF001A01037", "Mystery Fund")
+    set_override(db2, "INF001A01037", "GOLD")
+    db2.commit()
+    result = classify_all(db2)
+    assert result == {"by_category": 1, "by_name": 1, "by_override": 1}
+    assert db2.execute(
+        "SELECT COUNT(*) FROM schemes WHERE asset_class='UNCLASSIFIED'"
+    ).fetchone()[0] == 0

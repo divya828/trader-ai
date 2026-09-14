@@ -63,3 +63,61 @@ def classify_category(sebi_category: str | None) -> str | None:
         if normalized.startswith(prefix.upper()):
             return CATEGORY_ASSET_CLASS[prefix]
     return None
+
+
+# --- Layer 2: name inference, for categories that span asset classes ---
+#
+# "Other Scheme - Index Funds" (1,078 rows) and the untyped ETF/FoF families
+# cannot be classified by category: an index fund may track Nifty, a gilt
+# index, or gold. Scheme names usually say which, but not always -- measured
+# on the live file, 212 of 1,078 index-fund names match more than one asset
+# class (e.g. "Crisil IBX 50:50 Gilt Plus SDL Apr 2028 Index Fund" reads as
+# both debt and index-equity).
+#
+# Rule: a name that matches exactly one asset class is classified. A name
+# matching several, or none, returns None and stays UNCLASSIFIED. Ambiguity
+# must never be resolved by guessing -- a wrong asset class corrupts
+# allocation drift silently, while an unclassified one is visibly reported.
+
+import re as _re
+
+_NAME_PATTERNS: dict[str, str] = {
+    # Gold/silver first conceptually: these names are unambiguous.
+    "GOLD": r"\bGOLD\b|\bSILVER\b",
+    # NOTE: "PSU" alone is NOT a debt marker. "PSU Fund" is an equity fund
+    # investing in public-sector companies; only "PSU Bond"/"PSU Debt" is
+    # debt. Validating name inference against AMFI's own typed categories
+    # caught this mislabelling 206 rows as DEBT.
+    "DEBT": (
+        r"\bG-?SEC\b|\bGILT\b|\bBOND\b|\bSDL\b|\bTREASURY\b|\bLIQUID\b"
+        r"|\bDEBT\b|MONEY\s*MARKET|CONSTANT\s+MATURITY|\bAAA\b"
+        r"|\bIBX\b|\bDURATION\b|\bOVERNIGHT\b"
+    ),
+    # "HYBRID"/"BALANCED"/"ASSET ALLOCATION" names often also say "Equity"
+    # (e.g. "Aggressive Hybrid Equity Fund"). Listing HYBRID as its own family
+    # makes such a name match two families, so it returns None instead of
+    # being mislabelled EQUITY.
+    "HYBRID": (
+        r"\bHYBRID\b|\bBALANCED\b|ASSET\s+ALLOCAT|\bARBITRAGE\b"
+        r"|MULTI[\s-]*ASSET|EQUITY\s+SAVINGS"  # "Equity Savings Fund" is SEBI-hybrid
+    ),
+    "EQUITY": (
+        r"\bNIFTY\b|\bSENSEX\b|\bBSE\b|LARGE\s*CAP|MID\s*CAP|SMALL\s*CAP"
+        r"|\bEQUITY\b|\bMOMENTUM\b|\bALPHA\b|\bPHARMA\b|\bFMCG\b|\bAUTO\b"
+        r"|\bINFRA\b|\bIT\b"
+    ),
+}
+_COMPILED = {k: _re.compile(v, _re.I) for k, v in _NAME_PATTERNS.items()}
+
+
+def classify_by_name(scheme_name: str | None) -> str | None:
+    """Infer asset class from a scheme name, or None when not unambiguous.
+
+    Returns a class only when exactly one pattern family matches. This is a
+    fallback for categories that cannot be classified, never an override of
+    one that can.
+    """
+    if not scheme_name:
+        return None
+    matches = [k for k, pattern in _COMPILED.items() if pattern.search(scheme_name)]
+    return matches[0] if len(matches) == 1 else None

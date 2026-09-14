@@ -121,3 +121,75 @@ def test_real_file_row_coverage_is_materially_complete():
     rows = parse(fixture.read_text(encoding="utf-8"), UNIVERSE).rows
     covered = sum(1 for r in rows if classify_category(r.sebi_category))
     assert covered / len(rows) > 0.75, f"category coverage fell to {covered}/{len(rows)}"
+
+
+# --- Layer 2: name inference ---
+#
+# Validated against AMFI's own typed categories: on 12,134 rows where the
+# category gives a definite answer, name inference disagrees on 17 (0.14%).
+# Each iteration of that validation caught a real mislabelling.
+
+
+def test_name_inference_returns_none_when_ambiguous():
+    from trader_ai.marketdata.categories import classify_by_name
+
+    # "Nifty" (equity) + "G-Sec" (debt) cannot be resolved from the name.
+    assert classify_by_name("ICICI Prudential Nifty G-Sec Dec 2030 Index Fund") is None
+
+
+def test_name_inference_handles_unambiguous_names():
+    from trader_ai.marketdata.categories import classify_by_name
+
+    assert classify_by_name("SBI Nifty 50 Index Fund") == "EQUITY"
+    assert classify_by_name("Motilal Oswal 5 Year G-Sec Fund") == "DEBT"
+    assert classify_by_name("HDFC Gold ETF") == "GOLD"
+
+
+def test_psu_alone_is_not_a_debt_marker():
+    """"PSU Fund" is an EQUITY fund investing in public-sector companies.
+
+    Only "PSU Bond"/"PSU Debt" is debt. Treating bare "PSU" as debt
+    mislabelled 206 rows in the live file.
+    """
+    from trader_ai.marketdata.categories import classify_by_name
+
+    assert classify_by_name("SBI PSU Fund") != "DEBT"
+    assert classify_by_name("Nippon India PSU Bond Fund") == "DEBT"
+
+
+def test_hybrid_names_containing_equity_are_not_called_equity():
+    """"Aggressive Hybrid Equity Fund" and "Equity Savings Fund" are hybrids.
+
+    Both contain "Equity"; naive matching called them EQUITY (171 rows).
+    """
+    from trader_ai.marketdata.categories import classify_by_name
+
+    assert classify_by_name("PGIM India Aggressive Hybrid Equity Fund") != "EQUITY"
+    assert classify_by_name("Axis Equity Savings Fund") != "EQUITY"
+
+
+def test_name_inference_never_contradicts_a_known_category_often():
+    """Guard the agreement rate measured against AMFI's own categories.
+
+    Where the category is definite, name inference must agree or stay silent.
+    A regression here means the patterns have become unsafe.
+    """
+    import pathlib
+
+    from trader_ai.marketdata.categories import classify_by_name, classify_category
+    from trader_ai.marketdata.layouts import UNIVERSE
+    from trader_ai.marketdata.parser import parse
+
+    fixture = pathlib.Path("tests/marketdata/fixtures/navall_sample.txt")
+    rows = parse(fixture.read_text(encoding="utf-8"), UNIVERSE).rows
+    checked = disagreed = 0
+    for row in rows:
+        truth = classify_category(row.sebi_category)
+        if not truth:
+            continue
+        checked += 1
+        guess = classify_by_name(row.scheme_name)
+        if guess is not None and guess != truth:
+            disagreed += 1
+    assert checked > 0
+    assert disagreed / checked < 0.02, f"name inference disagrees on {disagreed}/{checked}"
