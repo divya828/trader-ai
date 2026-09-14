@@ -82,6 +82,70 @@ generic index funds, solution-oriented and lifecycle funds — and stays
 `UNCLASSIFIED` rather than being guessed, because a wrong asset class corrupts
 allocation drift silently while an unclassified one is visible.
 
+## Metrics (v0.2b)
+
+Five deterministic metrics derived from the retail investment literature, each
+returning either a value or an explicit reason it could not be computed. No LLM
+is involved: these are formulas from named sources, not judgments.
+
+| Metric | Source | Needs NAV history |
+|---|---|---|
+| Behaviour gap | Morningstar, *Mind the Gap* | yes |
+| Cost drag | Bogle; SEBI direct-plan regulation | yes |
+| Diversification | SEBI categories; Herfindahl | no |
+| Consistency | rolling-return methodology | yes |
+| Rebalancing | Daryanani 5/25 | no |
+
+**Unavailability is explicit.** Every metric returns a `Measurement` that is
+either a value or a reason — never a bare `None` that a caller might read as
+zero. An unmeasured dimension must never look like a clean one.
+
+**v0.1 math is reused, not reimplemented.** Behaviour gap uses v0.1's `xirr`;
+rebalancing uses its FIFO lot matcher; consistency uses the shared `cagr`. A
+layering test asserts this, because a second implementation would drift from
+the tested one.
+
+### NAV history
+
+Metrics that need history require a backfill, which samples **weekly**:
+
+    from datetime import date
+    from trader_ai.marketdata.history import backfill_history
+
+    backfill_history(con, date(2021, 1, 1), date.today())
+
+Weekly, whole-universe sampling costs roughly 290MB over five years. Daily
+would cost ~2.1GB, because AMFI's history endpoint returns every scheme per
+request. AMFI's `mf=<amc>` parameter would cut this 23×, but it reveals which
+fund houses you invest with — a portfolio-derived parameter, and therefore out
+of bounds. The constraint is deliberate.
+
+Weekends return ~600 rows instead of ~8,700, so sampling targets Wednesdays and
+records sparse days *without* caching them — a cached weekend would look like a
+filled gap and never be retried.
+
+### Cost-drag coverage
+
+AMFI publishes no machine-readable TER, so drag is measured from the spread
+between a scheme's Direct and Regular NAV series — which captures trail
+commission as actually charged, and is therefore a better number than stated
+TER.
+
+Every result reports the share of portfolio value it covered, with a distinct
+reason for each exclusion, because each implies a different remedy:
+
+| Reason | Meaning | Remedy |
+|---|---|---|
+| `NOT_APPLICABLE` | ETF or close-ended; no plan distinction exists | none needed |
+| `UNKNOWN` | open-ended, but AMFI omits the plan | better source data |
+| `NO_SIBLING` | Regular plan whose Direct twin is not in the universe | wider universe |
+| `NO_MARKET_DATA` | the holding's ISIN matched no AMFI scheme | refresh |
+| `NO_NAV_HISTORY` | a pair exists but one side lacks two NAV points | backfill |
+
+A portfolio figure is never shown without its coverage share, and covered plus
+uncovered always equals total portfolio value — asserted by test, so holdings
+cannot vanish from the report silently.
+
 ## Setup
 
     uv venv --python 3.12
