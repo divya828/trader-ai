@@ -55,6 +55,24 @@ DISPOSING = {"REDEMPTION", "SWITCH_OUT", "SWITCH_OUT_MERGER", "GIFT_OUT"}
 PAN_SHAPE = __import__("re").compile(r"[A-Z]{5}[0-9]{4}[A-Z]")
 
 
+PASSWORD_FILE = Path("data/.cas_password")
+
+
+def _read_password() -> str | None:
+    """Prefer the environment; fall back to a gitignored local file.
+
+    The file exists because an `export` in the user's own shell is not visible
+    to a separately-spawned process. It lives under data/, which is gitignored
+    in full, and the caller is told to delete it once the import succeeds.
+    """
+    from_env = os.environ.get("TRADER_AI_CAS_PASSWORD")
+    if from_env:
+        return from_env
+    if PASSWORD_FILE.exists():
+        return PASSWORD_FILE.read_text(encoding="utf-8").strip() or None
+    return None
+
+
 def section(title: str) -> None:
     print(f"\n{title}\n{'-' * len(title)}")
 
@@ -70,10 +88,11 @@ def main() -> int:
         print(f"ERROR: no such file: {pdf_path}")
         return 2
 
-    password = os.environ.get("TRADER_AI_CAS_PASSWORD")
+    password = _read_password()
     if not password:
-        print("ERROR: set TRADER_AI_CAS_PASSWORD in your environment first.")
+        print("ERROR: no password available. Either:")
         print("  export TRADER_AI_CAS_PASSWORD='...'")
+        print("  or write it to data/.cas_password (gitignored)")
         return 2
 
     db_path = "data/ledger.db" if keep else ":memory:"
@@ -194,6 +213,8 @@ def main() -> int:
         print("  Database was in-memory; nothing was written to disk.")
     else:
         print(f"  Database written to {db_path} (gitignored).")
+    if PASSWORD_FILE.exists():
+        print(f"\n  REMINDER: delete the password file -> rm {PASSWORD_FILE}")
     return 0
 
 
