@@ -146,6 +146,57 @@ A portfolio figure is never shown without its coverage share, and covered plus
 uncovered always equals total portfolio value — asserted by test, so holdings
 cannot vanish from the report silently.
 
+## Findings and health score (v0.2c)
+
+Nine rules turn the metrics into typed, cited findings, aggregated into five
+dimension scores. Still no LLM: these are thresholds from named sources.
+
+**Findings are PII-free by construction.** A `Subject` carries a scheme name or
+ISIN and a portfolio *ratio* — never a folio number, a PAN, or a rupee amount,
+enforced at construction time. Both the raw PAN shape and the masked form this
+project actually stores are rejected. A future redaction gate will therefore
+have nothing to strip.
+
+**Every finding cites its source and carries its numbers.** `metrics` holds
+every figure behind the finding, so an explanatory tier can explain rather than
+recalculate.
+
+**An unmeasured dimension scores `None`, never 100.** On a portfolio with no
+disposals and no IDCW holdings, neither tax rule can fire — so TAX_EFFICIENCY
+reports as unmeasured with a reason, and the overall score says how many
+dimensions it covered. On the real portfolio this is the difference between an
+honest 81.3 and a flattering 88.8.
+
+**A dimension can be only partly evaluated.** ALLOCATION has two rules; with no
+target configured, one runs and one cannot. `fully_evaluated` exposes that, so
+a score of 100 built from half a dimension does not read as "allocation is
+fine".
+
+**Two rules deliberately stay silent rather than guess:**
+
+- `behavior.timing_gap` requires at least one disposal. A negative behaviour
+  gap is the normal arithmetic of accumulating into a rising market — the real
+  portfolio shows −8.2 points a year across 402 purchases and zero
+  redemptions. Firing on that alone would manufacture a finding from an
+  artifact.
+- `allocation.band_breach` requires a configured target. Assuming a
+  conventional split would present a default as a recommendation.
+
+<!-- -->
+
+    from trader_ai.rules.context import build_context
+    from trader_ai.rules.registry import evaluate
+    from trader_ai.rules.score import overall_score, score_dimensions
+    from trader_ai.rules.store import save_findings, save_scores
+
+    ctx = build_context(con, metrics={"cost_drag": ..., "behavior_gaps": ...})
+    findings, evaluable, coverage = evaluate(ctx)
+    scores = score_dimensions(findings, evaluable, coverage)
+    overall = overall_score(scores)
+
+    save_findings(con, "run-1", findings)
+    save_scores(con, list(scores.values()))
+
 ## Setup
 
     uv venv --python 3.12
