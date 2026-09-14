@@ -32,3 +32,12 @@ def apply_schema_v02(con: sqlite3.Connection) -> None:
     """Apply the additive v0.2 migration. Requires apply_schema first."""
     con.executescript(SCHEMA_V02_PATH.read_text())
     con.commit()
+
+
+SCHEMA_V02C_PATH = Path(__file__).with_name("schema_v02c.sql")
+
+
+def apply_schema_v02c(con: sqlite3.Connection) -> None:
+    """Apply the additive v0.2c migration. Requires apply_schema_v02 first."""
+    con.executescript(SCHEMA_V02C_PATH.read_text())
+    con.commit()

@@ -181,3 +181,54 @@ def test_no_order_placement_code_anywhere():
             source = py_file.read_text().lower()
             for term in banned:
                 assert term not in source, f"{py_file} contains {term!r}"
+
+
+# --- v0.2c: the rule engine ---
+
+RULES = pathlib.Path("src/trader_ai/rules")
+
+
+def test_rules_never_import_ingest_or_the_http_client():
+    offenders = {
+        m for m in _imported_modules(RULES)
+        if "ingest" in m or "amfi_client" in m or m.startswith("urllib")
+    }
+    assert not offenders, f"rules must not reach ingest or the network: {offenders}"
+
+
+def test_rules_contain_no_llm_client():
+    banned = {"openai", "anthropic", "ollama", "langchain", "langgraph", "transformers"}
+    assert not (_imported_modules(RULES) & banned), "v0.2c must contain no LLM call"
+
+
+def test_rules_do_not_recompute_metrics():
+    """Rules consume metrics from the context; they never recalculate one.
+
+    This is what keeps a future LLM tier explaining rather than calculating.
+    """
+    for py_file in (RULES / "families").rglob("*.py"):
+        source = py_file.read_text()
+        assert "xirr(" not in source, f"{py_file} recomputes XIRR"
+        assert "match_fifo(" not in source, f"{py_file} recomputes FIFO lots"
+
+
+def test_no_rule_can_reach_a_folio_or_pan():
+    """Context exposes no identifying field, so a rule cannot leak one."""
+    context_source = (RULES / "context.py").read_text()
+    for term in ("folio_number", "pan_masked"):
+        assert term not in context_source, f"context exposes {term}"
+
+
+def test_subject_rejects_both_raw_and_masked_pan_shapes():
+    """The guard must cover the masked form this project actually stores.
+
+    A raw PAN is ABCPX1234Z; the stored form is first3+XXX+last4. Only
+    checking the raw shape would let a masked PAN into a finding.
+    """
+    import pytest as _pytest
+
+    from trader_ai.rules.finding import Subject
+
+    for bad in ("ABCPX1234Z", "LFGXXX630Q"):
+        with _pytest.raises(ValueError, match="PAN"):
+            Subject(kind="SCHEME", ref=bad)
