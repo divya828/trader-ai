@@ -232,3 +232,72 @@ def test_subject_rejects_both_raw_and_masked_pan_shapes():
     for bad in ("ABCPX1234Z", "LFGXXX630Q"):
         with _pytest.raises(ValueError, match="PAN"):
             Subject(kind="SCHEME", ref=bad)
+
+
+# --- v0.3: the explanation layer ---
+
+LLM = pathlib.Path("src/trader_ai/llm")
+
+
+def _direct_imports(py_file: pathlib.Path) -> set[str]:
+    tree = ast.parse(py_file.read_text())
+    found: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            found.update(a.name for a in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            found.add(node.module)
+    return found
+
+
+def test_only_the_llm_client_imports_the_anthropic_sdk():
+    """One module decides what leaves the machine. Keep it that way."""
+    for py_file in sorted(LLM.rglob("*.py")):
+        if py_file.name == "client.py":
+            continue
+        assert "anthropic" not in _direct_imports(py_file), f"{py_file} imports anthropic"
+
+
+def test_no_llm_module_imports_ingest_or_opens_the_ledger():
+    offenders = {m for m in _imported_modules(LLM) if "ingest" in m}
+    assert not offenders, f"llm must not import ingest: {offenders}"
+    for py_file in sorted(LLM.rglob("*.py")):
+        assert "ledger.db" not in py_file.read_text(), f"{py_file} references the ledger"
+
+
+def test_redaction_never_imports_the_client():
+    """The gate must not depend on the thing it guards."""
+    found = _direct_imports(LLM / "redaction.py")
+    assert not any("client" in m for m in found)
+
+
+def test_the_client_signature_accepts_only_redacted_findings():
+    import inspect
+
+    from trader_ai.llm.client import HostedExplainer
+
+    annotation = str(
+        inspect.signature(HostedExplainer.explain).parameters["findings"].annotation
+    )
+    assert "RedactedFinding" in annotation
+
+
+def test_no_llm_module_computes_a_portfolio_figure():
+    """The model is given numbers; nothing here derives one."""
+    for py_file in sorted(LLM.rglob("*.py")):
+        source = py_file.read_text()
+        for banned in ("xirr(", "match_fifo(", "cagr(", "herfindahl("):
+            assert banned not in source, f"{py_file} computes {banned}"
+
+
+def test_the_redacted_type_cannot_carry_an_identifier():
+    """Enforcement by type: the outbound shape has no field for a name or id."""
+    import dataclasses
+
+    from trader_ai.llm.redaction import RedactedFinding, RedactedSubject
+
+    subject_fields = {f.name for f in dataclasses.fields(RedactedSubject)}
+    assert not subject_fields & {"ref", "local_id", "scheme_name", "folio"}
+
+    finding_fields = {f.name for f in dataclasses.fields(RedactedFinding)}
+    assert "title" not in finding_fields  # titles embed scheme names verbatim

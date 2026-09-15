@@ -196,3 +196,31 @@ def test_a_non_string_explanation_is_dropped():
     client = HostedExplainer(client=_FakeClient(_ok_response(payload)))
     result = client.explain([_redacted()])
     assert result.explanations == {}
+
+
+def test_no_credential_at_all_degrades_instead_of_crashing():
+    """With NO key configured, the SDK raises TypeError from the REQUEST.
+
+    Credential resolution is lazy: the constructor succeeds and the failure
+    surfaces on the first call, never as AuthenticationError (which means a
+    key was present and rejected). Letting the TypeError escape would crash a
+    report whose numbers were all computed locally -- the exact opposite of
+    the degradation this class promises. Found by running the live test on a
+    machine with no credential.
+    """
+    def raise_type_error(kwargs):
+        raise TypeError("Could not resolve authentication method.")
+
+    client = HostedExplainer(client=_FakeClient(raise_type_error))
+    result = client.explain([_redacted()])
+
+    assert not result.available
+    assert "credential" in result.reason.lower()
+
+
+def test_no_findings_short_circuits_before_any_auth_resolution():
+    def raise_type_error(kwargs):
+        raise TypeError("Could not resolve authentication method.")
+
+    result = HostedExplainer(client=_FakeClient(raise_type_error)).explain([])
+    assert result.available

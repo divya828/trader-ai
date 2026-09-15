@@ -66,6 +66,13 @@ class HostedExplainer:
                     "format": {"type": "json_schema", "schema": EXPLANATION_SCHEMA}
                 },
             )
+        except TypeError:
+            # With NO credential configured, the SDK resolves auth lazily and
+            # raises TypeError from the REQUEST, not the constructor -- and
+            # never as AuthenticationError, which means a key was present and
+            # rejected. Letting it escape would crash a report whose numbers
+            # were all computed locally, the opposite of what this promises.
+            return ExplanationResult(reason="no API credential is configured")
         except anthropic.AuthenticationError:
             return ExplanationResult(reason="no usable API credential")
         except anthropic.APIConnectionError:
