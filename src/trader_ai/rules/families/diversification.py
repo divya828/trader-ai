@@ -48,7 +48,12 @@ def category_duplication_rule(ctx: Context) -> list[Finding]:
                 severity=severity,
                 title=f"{group.count} funds share the SEBI category {category}",
                 subjects=[
-                    Subject(kind="SCHEME", ref=m.scheme_name, weight=m.weight)
+                    Subject(
+                        kind="SCHEME",
+                        ref=m.scheme_name,
+                        weight=m.weight,
+                        local_id=m.scheme_id,
+                    )
                     for m in members
                 ],
                 metrics={

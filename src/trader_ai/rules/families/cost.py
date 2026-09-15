@@ -40,7 +40,7 @@ def regular_plan_drag_rule(ctx: Context) -> list[Finding]:
                 f"({weight * 100:.1f}% of the portfolio) have Direct equivalents"
             ),
             subjects=[
-                Subject(kind="SCHEME", ref=h.scheme_name, weight=h.weight)
+                Subject(kind="SCHEME", ref=h.scheme_name, weight=h.weight, local_id=h.scheme_id)
                 for h in regular
             ],
             metrics={

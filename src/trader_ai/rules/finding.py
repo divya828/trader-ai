@@ -51,6 +51,13 @@ class Subject:
     kind: str
     ref: str
     weight: float | None = None
+    local_id: int | None = None
+    """Ledger-local identity (a scheme_id), used only as a redaction key.
+
+    RedactedSubject has no counterpart field, so this cannot reach an
+    outbound payload. It exists because three real fund names each map to
+    two scheme_ids, and keying labels on the name merged distinct holdings.
+    """
 
     def __post_init__(self) -> None:
         if self.kind not in VALID_KINDS:

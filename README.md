@@ -197,6 +197,59 @@ fine".
     save_findings(con, "run-1", findings)
     save_scores(con, list(scores.values()))
 
+## Explanations (v0.3)
+
+A hosted Claude model turns findings into prose. Everything else in this project
+remains deterministic: the model restates numbers it is given and never computes
+one.
+
+**The redaction gate is the enforcement, not the prompt.** `llm/client.py`
+accepts only `RedactedFinding` — there is no overload taking a `Finding`, and
+`RedactedFinding` has no field that could carry a scheme name, a folio, or an
+amount. Passing unredacted data is a type error, not a runtime check.
+
+**What leaves the machine:** rule ids, severities, opaque labels (`fund_1`),
+portfolio weights as ratios, the metrics behind each finding, and the citation.
+**What does not:** scheme names, folio numbers, PAN, and rupee amounts. Names are
+re-attached locally after the response, so you read real fund names while the
+model never saw one.
+
+Labels key on `scheme_id`, not on the fund name — three funds in this ledger
+appear under two scheme_ids each (the same fund in two folios), and keying on
+the name merged them into one label carrying two different weights.
+
+Explanations key on `finding_key` (`<rule_id>#<index>`), not `rule_id` — this
+ledger produces four findings that all share `diversification.category_duplication`,
+and keying on `rule_id` silently left three of them unexplained.
+
+**A leak test compares values, not shapes.** It reads the real folio numbers,
+masked PANs and scheme names from the ledger and asserts none appears in the
+serialised request. A shape-based folio regex false-positives on the SEBI
+circular number `2017/114`, and a guard that fails on a public citation is a
+guard someone will weaken.
+
+**Failure degrades, never fails the run.** The SDK retries connection errors,
+429 and 5xx twice with backoff. After that — or with no credential at all — the
+report prints each finding's title, numbers and source, and states that the
+explanation was unavailable and why:
+
+    Explanations unavailable: no API credential is configured
+    The findings above were computed locally and are unaffected.
+
+<!-- -->
+
+    export ANTHROPIC_API_KEY=...        # or: ant auth login
+
+    from trader_ai.llm.explainer import explain_findings
+    from trader_ai.llm.report import render_report
+
+    result = explain_findings(findings)
+    print(render_report(findings, scores, overall, result))
+
+This version amends the original brief, which specified a local model. See the
+v0.3 spec for the reasoning; the redaction is stricter than the brief required,
+which is what makes a hosted call defensible.
+
 ## Setup
 
     uv venv --python 3.12
