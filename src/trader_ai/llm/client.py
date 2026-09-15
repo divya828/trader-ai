@@ -39,7 +39,7 @@ class ExplanationResult:
 
 
 class HostedExplainer:
-    """Sends redacted findings to Claude and returns text per rule_id."""
+    """Sends redacted findings to Claude and returns text per finding_key."""
 
     def __init__(self, client: object | None = None) -> None:
         self._client = client or anthropic.Anthropic(
@@ -47,11 +47,14 @@ class HostedExplainer:
         )
 
     def explain(self, findings: list[RedactedFinding]) -> ExplanationResult:
-        """Explain each finding. Never raises; degrades with a reason."""
+        """Explain each finding, keyed by finding_key.
+
+        Never raises; degrades with a reason.
+        """
         if not findings:
             return ExplanationResult()
 
-        expected = {f.rule_id for f in findings}
+        expected = {f.finding_key for f in findings}
 
         try:
             message = self._client.messages.create(
@@ -93,10 +96,10 @@ class HostedExplainer:
         # Keep only rule_ids that were actually sent: a response must not
         # introduce findings the deterministic layer never produced.
         explanations = {
-            entry["rule_id"]: entry["text"]
+            entry["finding_key"]: entry["text"]
             for entry in entries
             if isinstance(entry, dict)
-            and entry.get("rule_id") in expected
+            and entry.get("finding_key") in expected
             and isinstance(entry.get("text"), str)
         }
         return ExplanationResult(explanations=explanations)

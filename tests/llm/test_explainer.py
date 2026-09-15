@@ -28,7 +28,7 @@ class _FakeExplainer:
 
 def test_the_client_only_ever_receives_redacted_findings():
     fake = _FakeExplainer(
-        ExplanationResult({"diversification.category_duplication": "x"})
+        ExplanationResult({"diversification.category_duplication#0": "x"})
     )
     explain_findings([_finding()], client=fake)
     assert all(type(f).__name__ == "RedactedFinding" for f in fake.received)
@@ -37,11 +37,11 @@ def test_the_client_only_ever_receives_redacted_findings():
 def test_labels_are_replaced_with_real_names_in_the_returned_text():
     fake = _FakeExplainer(
         ExplanationResult(
-            {"diversification.category_duplication": "fund_1 overlaps with others."}
+            {"diversification.category_duplication#0": "fund_1 overlaps with others."}
         )
     )
     result = explain_findings([_finding()], client=fake)
-    text = result.explanations["diversification.category_duplication"]
+    text = result.explanations["diversification.category_duplication#0"]
     assert "HDFC Flexi Cap Fund" in text
     assert "fund_1" not in text
 
@@ -52,10 +52,10 @@ def test_re_attachment_handles_several_labels():
         Subject("SCHEME", "Fund Beta", 0.3, 2),
     ]
     fake = _FakeExplainer(
-        ExplanationResult({"diversification.category_duplication": "fund_1 and fund_2."})
+        ExplanationResult({"diversification.category_duplication#0": "fund_1 and fund_2."})
     )
     result = explain_findings([_finding(subjects=subjects)], client=fake)
-    text = result.explanations["diversification.category_duplication"]
+    text = result.explanations["diversification.category_duplication#0"]
     assert "Fund Alpha" in text and "Fund Beta" in text
 
 
@@ -75,11 +75,11 @@ def test_no_findings_returns_an_empty_available_result():
 
 def test_a_label_that_does_not_appear_in_the_text_is_harmless():
     fake = _FakeExplainer(
-        ExplanationResult({"diversification.category_duplication": "No labels here."})
+        ExplanationResult({"diversification.category_duplication#0": "No labels here."})
     )
     result = explain_findings([_finding()], client=fake)
     assert (
-        result.explanations["diversification.category_duplication"] == "No labels here."
+        result.explanations["diversification.category_duplication#0"] == "No labels here."
     )
 
 
@@ -99,9 +99,9 @@ def test_longer_labels_are_replaced_before_shorter_prefixes():
         Subject("SCHEME", "Omega Fund", 0.05, 10),
     ]
     fake = _FakeExplainer(
-        ExplanationResult({"diversification.category_duplication": "fund_10 is largest."})
+        ExplanationResult({"diversification.category_duplication#0": "fund_10 is largest."})
     )
     result = explain_findings([_finding(subjects=subjects)], client=fake)
-    text = result.explanations["diversification.category_duplication"]
+    text = result.explanations["diversification.category_duplication#0"]
     assert text == "Omega Fund is largest."
     assert "Fund0" not in text  # the shortest-first corruption

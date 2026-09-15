@@ -9,6 +9,7 @@ from trader_ai.llm.redaction import RedactedFinding, RedactedSubject
 
 def _redacted(rule_id="diversification.category_duplication"):
     return RedactedFinding(
+        finding_key=f"{rule_id}#0",
         rule_id=rule_id,
         severity="MEDIUM",
         subjects=[RedactedSubject("SCHEME", "fund_1", 0.29)],
@@ -44,13 +45,13 @@ def _ok_response(payload):
     return lambda kwargs: _Message()
 
 
-def test_explain_returns_text_keyed_by_rule_id():
-    payload = {"explanations": [{"rule_id": "diversification.category_duplication",
+def test_explain_returns_text_keyed_by_finding_key():
+    payload = {"explanations": [{"finding_key": "diversification.category_duplication#0",
                                  "text": "Three funds do the same job."}]}
     client = HostedExplainer(client=_FakeClient(_ok_response(payload)))
     result = client.explain([_redacted()])
     assert result.available
-    assert result.explanations["diversification.category_duplication"].startswith("Three")
+    assert result.explanations["diversification.category_duplication#0"].startswith("Three")
 
 
 def test_explain_accepts_only_redacted_findings():
@@ -182,15 +183,15 @@ def test_structured_output_is_requested():
 
 def test_an_unexpected_rule_id_in_the_response_is_dropped():
     """A response must not introduce findings that were never sent."""
-    payload = {"explanations": [{"rule_id": "made.up.rule", "text": "..."}]}
+    payload = {"explanations": [{"finding_key": "made.up.rule#0", "text": "..."}]}
     client = HostedExplainer(client=_FakeClient(_ok_response(payload)))
     result = client.explain([_redacted()])
-    assert "made.up.rule" not in result.explanations
+    assert "made.up.rule#0" not in result.explanations
 
 
 def test_a_non_string_explanation_is_dropped():
     payload = {"explanations": [
-        {"rule_id": "diversification.category_duplication", "text": 123}
+        {"finding_key": "diversification.category_duplication#0", "text": 123}
     ]}
     client = HostedExplainer(client=_FakeClient(_ok_response(payload)))
     result = client.explain([_redacted()])

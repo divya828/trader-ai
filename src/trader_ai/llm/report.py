@@ -69,9 +69,10 @@ def render_report(
     else:
         lines.append(f"FINDINGS ({len(findings)})")
         lines.append("-" * 12)
-        for finding in findings:
+        for index, finding in enumerate(findings):
+            key = f"{finding.rule_id}#{index}"
             lines.extend(
-                _render_finding(finding, explanations.explanations.get(finding.rule_id))
+                _render_finding(finding, explanations.explanations.get(key))
             )
 
     if not explanations.available:

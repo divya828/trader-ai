@@ -11,6 +11,7 @@ from trader_ai.llm.redaction import RedactedFinding, RedactedSubject
 def _redacted():
     return [
         RedactedFinding(
+            finding_key="diversification.category_duplication#0",
             rule_id="diversification.category_duplication",
             severity="MEDIUM",
             subjects=[RedactedSubject("SCHEME", "fund_1", 0.29)],
@@ -57,12 +58,12 @@ def test_schema_requires_one_entry_per_rule_id():
     assert "explanations" in EXPLANATION_SCHEMA["properties"]
 
 
-def test_schema_keys_explanations_by_rule_id():
-    """Responses keyed by rule_id cannot be silently misattributed."""
+def test_schema_keys_explanations_by_finding_key():
+    """finding_key is unique; rule_id is not (four findings share one)."""
     item = EXPLANATION_SCHEMA["properties"]["explanations"]["items"]
-    assert "rule_id" in item["properties"]
+    assert "finding_key" in item["properties"]
     assert "text" in item["properties"]
-    assert set(item["required"]) == {"rule_id", "text"}
+    assert set(item["required"]) == {"finding_key", "text"}
 
 
 def test_schema_is_valid_json():

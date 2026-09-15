@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from trader_ai.llm.redaction import RedactedFinding, RedactedSubject, redact
+from trader_ai.llm.redaction import RedactedSubject, redact
 from trader_ai.rules.finding import Finding, Severity, Subject
 
 
@@ -111,3 +111,28 @@ def test_a_redacted_finding_serialises_without_any_name():
     blob = json.dumps([dataclasses.asdict(f) for f in result.findings])
     assert name not in blob
     assert "fund_1" in blob
+
+
+def test_each_finding_gets_a_unique_key_even_when_rule_ids_repeat():
+    """The real portfolio produces FOUR findings all carrying
+    diversification.category_duplication. Keying explanations on rule_id
+    collapsed them into one, silently leaving three unexplained.
+    """
+    same = "diversification.category_duplication"
+    result = redact([
+        _finding([Subject("SCHEME", "Fund A", 0.1, 1)], rule_id=same),
+        _finding([Subject("SCHEME", "Fund B", 0.2, 2)], rule_id=same),
+        _finding([Subject("SCHEME", "Fund C", 0.3, 3)], rule_id=same),
+    ])
+    keys = [f.finding_key for f in result.findings]
+    assert len(set(keys)) == 3, keys
+    assert all(k.startswith(same) for k in keys)
+
+
+def test_the_finding_key_preserves_order():
+    result = redact([
+        _finding([Subject("SCHEME", "A", 0.1, 1)], rule_id="cost.regular_plan_drag"),
+        _finding([Subject("SCHEME", "B", 0.2, 2)], rule_id="tax.idcw_inefficiency"),
+    ])
+    assert result.findings[0].finding_key == "cost.regular_plan_drag#0"
+    assert result.findings[1].finding_key == "tax.idcw_inefficiency#1"

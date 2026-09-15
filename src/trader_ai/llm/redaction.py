@@ -37,6 +37,14 @@ class RedactedSubject:
 
 @dataclass(frozen=True)
 class RedactedFinding:
+    finding_key: str
+    """Unique within one evaluation: "<rule_id>#<index>".
+
+    rule_id alone is NOT unique -- the real portfolio produces four findings
+    all carrying diversification.category_duplication. Keying explanations by
+    rule_id collapsed them into one, silently leaving three unexplained.
+    """
+
     rule_id: str
     severity: str
     subjects: list[RedactedSubject]
@@ -68,10 +76,11 @@ def redact(findings: list[Finding]) -> Redaction:
         return by_key[key]
 
     redacted: list[RedactedFinding] = []
-    for finding in findings:
+    for index, finding in enumerate(findings):
         reference = citation(finding.citation_key)  # raises on an unknown key
         redacted.append(
             RedactedFinding(
+                finding_key=f"{finding.rule_id}#{index}",
                 rule_id=finding.rule_id,
                 severity=finding.severity.value,
                 subjects=[

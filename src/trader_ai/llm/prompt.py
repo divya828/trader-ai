@@ -44,10 +44,10 @@ EXPLANATION_SCHEMA: dict = {
             "items": {
                 "type": "object",
                 "properties": {
-                    "rule_id": {"type": "string"},
+                    "finding_key": {"type": "string"},
                     "text": {"type": "string"},
                 },
-                "required": ["rule_id", "text"],
+                "required": ["finding_key", "text"],
                 "additionalProperties": False,
             },
         }
@@ -60,11 +60,11 @@ EXPLANATION_SCHEMA: dict = {
 def build_user_message(findings: list[RedactedFinding]) -> str:
     """Serialise redacted findings as the model's input.
 
-    Keyed by rule_id on the way out too, so a response cannot be silently
-    misattributed to the wrong finding.
+    Keyed by finding_key, which is unique within an evaluation. rule_id is
+    not: the real portfolio produces four findings sharing one rule_id.
     """
     payload = [dataclasses.asdict(f) for f in findings]
     return (
-        "Explain each of these findings. Return one entry per rule_id.\n\n"
+        "Explain each of these findings. Return one entry per finding_key.\n\n"
         + json.dumps(payload, indent=2, sort_keys=True)
     )

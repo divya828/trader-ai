@@ -39,7 +39,7 @@ def test_report_includes_the_finding_title():
 
 
 def test_report_includes_the_explanation_when_available():
-    result = ExplanationResult({"diversification.category_duplication": "Because X."})
+    result = ExplanationResult({"diversification.category_duplication#0": "Because X."})
     text = render_report([_finding()], _scores(), OverallScore(81.3, 3, 5), result)
     assert "Because X." in text
 

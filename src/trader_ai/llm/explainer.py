@@ -37,7 +37,7 @@ def explain_findings(
 
     return ExplanationResult(
         explanations={
-            rule_id: _reattach(text, redaction.labels)
-            for rule_id, text in result.explanations.items()
+            finding_key: _reattach(text, redaction.labels)
+            for finding_key, text in result.explanations.items()
         }
     )
