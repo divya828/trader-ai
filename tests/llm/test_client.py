@@ -224,3 +224,40 @@ def test_no_findings_short_circuits_before_any_auth_resolution():
 
     result = HostedExplainer(client=_FakeClient(raise_type_error)).explain([])
     assert result.available
+
+
+def test_a_status_error_surfaces_the_api_message():
+    """A bare status code hid "your credit balance is too low".
+
+    That is an actionable error, and it was indistinguishable from a
+    malformed request until the message was included. Found by running the
+    live test against a real key on an account with no credit.
+    """
+    import anthropic
+
+    def raise_billing(kwargs):
+        exc = _status_error(anthropic.APIStatusError, 400)
+        exc.body = {
+            "type": "error",
+            "error": {
+                "type": "invalid_request_error",
+                "message": "Your credit balance is too low to access the Anthropic API.",
+            },
+        }
+        raise exc
+
+    result = HostedExplainer(client=_FakeClient(raise_billing)).explain([_redacted()])
+    assert not result.available
+    assert "400" in result.reason
+    assert "credit balance" in result.reason
+
+
+def test_a_status_error_without_a_body_still_reports_its_code():
+    import anthropic
+
+    def raise_bare(kwargs):
+        raise _status_error(anthropic.APIStatusError, 503)
+
+    result = HostedExplainer(client=_FakeClient(raise_bare)).explain([_redacted()])
+    assert not result.available
+    assert "503" in result.reason

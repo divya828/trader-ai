@@ -28,6 +28,18 @@ MAX_RETRIES = 2
 TIMEOUT_SECONDS = 60.0
 
 
+def _api_message(exc: anthropic.APIStatusError) -> str | None:
+    """Pull the human-readable message out of an API error body."""
+    body = getattr(exc, "body", None)
+    if isinstance(body, dict):
+        error = body.get("error")
+        if isinstance(error, dict):
+            message = error.get("message")
+            if isinstance(message, str) and message.strip():
+                return message.strip()
+    return None
+
+
 @dataclass(frozen=True)
 class ExplanationResult:
     explanations: dict[str, str] = field(default_factory=dict)
@@ -80,7 +92,12 @@ class HostedExplainer:
         except anthropic.RateLimitError:
             return ExplanationResult(reason="rate limited after retries")
         except anthropic.APIStatusError as exc:
-            return ExplanationResult(reason=f"model returned {exc.status_code}")
+            # Include the API's own message. A bare status code made "your
+            # credit balance is too low" indistinguishable from a malformed
+            # request, and the first is something the user can act on.
+            detail = _api_message(exc)
+            reason = f"model returned {exc.status_code}"
+            return ExplanationResult(reason=f"{reason}: {detail}" if detail else reason)
 
         return self._parse(message, expected)
 
