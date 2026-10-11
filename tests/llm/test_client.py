@@ -170,7 +170,7 @@ def test_the_model_is_the_pinned_id():
     payload = {"explanations": []}
     client = HostedExplainer(client=_FakeClient(_ok_response(payload)))
     client.explain([_redacted()])
-    assert client._client.messages.calls[0]["model"] == "claude-opus-5"
+    assert client._client.messages.calls[0]["model"] == "claude-opus-5-5"
 
 
 def test_structured_output_is_requested():

@@ -20,7 +20,7 @@ import anthropic
 from trader_ai.llm.prompt import EXPLANATION_SCHEMA, SYSTEM_PROMPT, build_user_message
 from trader_ai.llm.redaction import RedactedFinding
 
-MODEL = "claude-opus-5"
+MODEL = "claude-opus-5-5"
 MAX_TOKENS = 4096
 # The SDK retries connection errors, 408/409/429 and 5xx with exponential
 # backoff. Two is its default; a hand-rolled loop on top would double-retry.
@@ -117,7 +117,7 @@ class HostedExplainer:
         if not isinstance(entries, list):
             return ExplanationResult(reason="response had an unexpected format")
 
-        # Keep only rule_ids that were actually sent: a response must not
+        # Keep only finding_keys that were actually sent: a response must not
         # introduce findings the deterministic layer never produced.
         explanations = {
             entry["finding_key"]: entry["text"]
