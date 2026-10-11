@@ -180,7 +180,12 @@ fine".
   redemptions. Firing on that alone would manufacture a finding from an
   artifact.
 - `allocation.band_breach` requires a configured target. Assuming a
-  conventional split would present a default as a recommendation.
+  conventional split would present a default as a recommendation. Set one
+  (in percent, summing to 100) with:
+
+      uv run python scripts/set_target.py EQUITY=70 DEBT=20 GOLD=10
+      uv run python scripts/set_target.py            # show current vs target
+      uv run python scripts/set_target.py --clear
 
 <!-- -->
 
